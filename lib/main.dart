@@ -13,12 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Aparter app',
+      title: 'Apartee app',
       theme: ThemeData(
         primaryColor: ColorPalette.primaryColor,
         scaffoldBackgroundColor: ColorPalette.bgColor,
       ),
-
       debugShowCheckedModeBanner: false,
       //home: const HomePage(),
       home: const SplashScreen(),
