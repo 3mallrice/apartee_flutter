@@ -3,10 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:flutter_demo_02/representation/screens/home_screen.dart';
 import 'package:font_awesome_icon_class/src/font_awesome_icon_class.dart';
 
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  static const routName = 'main_dart';
 
   @override
   State<MainApp> createState() => _MainAppState();
@@ -35,7 +38,21 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: ColorPalette.bgColor,
-        body: const Center(child: Text('Main App')),
+        body: IndexedStack(
+          index: _selectedTab.index,
+          children: [
+            Home(),
+            Container(
+              color: Colors.blue,
+            ),
+            Container(
+              color: Colors.green,
+            ),
+            Container(
+              color: Colors.pink,
+            ),
+          ],
+        ),
         extendBody: true,
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.only(bottom: 10),
@@ -43,12 +60,12 @@ class _MainAppState extends State<MainApp> {
             backgroundColor: ColorPalette.secondColor,
             margin: const EdgeInsets.only(left: 5, right: 5),
             currentIndex: _SelectedTab.values.indexOf(_selectedTab),
+            onTap: _handleIndexChanged,
             dotIndicatorColor: ColorPalette.bgColor,
             unselectedItemColor: ColorPalette.unselectedIcon,
             splashBorderRadius: 20,
             enableFloatingNavBar: true,
             borderRadius: 20,
-            onTap: _handleIndexChanged,
             enablePaddingAnimation: false,
             items: [
               /// Home
