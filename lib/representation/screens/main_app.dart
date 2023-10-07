@@ -7,7 +7,7 @@ import 'package:font_awesome_icon_class/src/font_awesome_icon_class.dart';
 
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
-
+  static String routName = '/main_app';
   @override
   State<MainApp> createState() => _MainAppState();
 }
