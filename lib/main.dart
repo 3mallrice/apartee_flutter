@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
+import 'package:flutter_demo_02/representation/screens/main_app.dart';
 import 'package:flutter_demo_02/routes.dart';
 
 void main() {
@@ -12,14 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Aparter app',
+      title: 'Apartee app',
       theme: ThemeData(
         primaryColor: ColorPalette.primaryColor,
         scaffoldBackgroundColor: ColorPalette.bgColor,
       ),
-
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const MainApp(),
       routes: routes,
     );
   }
