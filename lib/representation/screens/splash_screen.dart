@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 import 'package:flutter_demo_02/core/helpers/image_helper.dart';
-import 'package:flutter_demo_02/representation/screens/home_screen.dart';
+import 'package:flutter_demo_02/representation/screens/main_app.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -20,8 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void redirectHome() async {
-    await Future.delayed(const Duration(seconds: 5));
-    Navigator.of(context).pushNamed(Home.routName);
+    await Future.delayed(Duration(seconds: 3));
+    Navigator.of(context).pushNamed(MainApp.routName);
   }
 
   @override
