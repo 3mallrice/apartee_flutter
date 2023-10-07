@@ -11,10 +11,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   final PageController _pageController = PageController();
 
-  Widget _buildItemInHomeScreen(String image){
+  Widget _buildItemInHomeScreen(String image) {
     return Column(
       children: [
         ImageHelper.loadFormAsset(

@@ -13,14 +13,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     super.initState();
     redirectHome();
   }
 
-  void redirectHome() async{
+  void redirectHome() async {
     await Future.delayed(Duration(seconds: 3));
     Navigator.of(context).pushNamed(MainApp.routName);
   }
@@ -31,7 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: const Color(0xFFFF8228), // Đặt màu nền thành FF8228
       body: Stack(
         children: [
-          ImageHelper.loadFormAsset(AssetHelper.imageLogoSplash, fit: BoxFit.fitWidth),
+          ImageHelper.loadFormAsset(AssetHelper.imageLogoSplash,
+              fit: BoxFit.fitWidth),
         ],
       ),
     );
