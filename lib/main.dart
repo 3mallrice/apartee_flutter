@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
-import 'package:flutter_demo_02/representation/screens/main_app.dart';
+import 'package:flutter_demo_02/representation/screens/splash_screen.dart';
 import 'package:flutter_demo_02/routes.dart';
 
 void main() {
@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: ColorPalette.bgColor,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MainApp(),
+      //home: const HomePage(),
+      home: const SplashScreen(),
       routes: routes,
     );
   }
