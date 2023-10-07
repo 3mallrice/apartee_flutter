@@ -39,7 +39,7 @@ class _MainAppState extends State<MainApp> {
         body: IndexedStack(
           index: _selectedTab.index,
           children: [
-            Home(),
+            const Home(),
             Container(
               color: Colors.blue,
             ),

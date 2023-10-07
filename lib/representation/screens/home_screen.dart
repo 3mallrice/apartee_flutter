@@ -30,7 +30,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        children: [],
+        children: [
+          _buildItemInHomeScreen(AssetHelper.imageBanner),
+        ],
       ),
     );
   }
