@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
+import 'package:flutter_demo_02/representation/screens/account_screen.dart';
 import 'package:flutter_demo_02/representation/screens/home_screen.dart';
+import 'package:flutter_demo_02/representation/screens/message_screen.dart';
+import 'package:flutter_demo_02/representation/screens/request_screen.dart';
 import 'package:font_awesome_icon_class/src/font_awesome_icon_class.dart';
 
 class MainApp extends StatefulWidget {
@@ -38,17 +41,11 @@ class _MainAppState extends State<MainApp> {
         backgroundColor: ColorPalette.bgColor,
         body: IndexedStack(
           index: _selectedTab.index,
-          children: [
-            const Home(),
-            Container(
-              color: Colors.blue,
-            ),
-            Container(
-              color: Colors.green,
-            ),
-            Container(
-              color: Colors.pink,
-            ),
+          children: const [
+            Home(),
+            RequestScreen(),
+            MessageScreen(),
+            const AccountScreen(),
           ],
         ),
         extendBody: true,
