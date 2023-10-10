@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
+// import 'package:flutter_demo_02/representation/screens/login_page.dart';
 import 'package:flutter_demo_02/representation/screens/splash_screen.dart';
 import 'package:flutter_demo_02/routes.dart';
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //home: const HomePage(),
       home: const SplashScreen(),
+      // home: LoginPage(),
       routes: routes,
     );
   }
