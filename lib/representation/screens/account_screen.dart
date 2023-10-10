@@ -25,93 +25,116 @@ class _AccountScreenState extends State<AccountScreen> {
         elevation: 3,
         automaticallyImplyLeading: false,
       ),
-      body: Column(
-        children: [
-          // Phần trên cùng
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              children: [
-                const Expanded(
-                  flex: 1,
-                  child: CircleAvatar(
-                    radius: 70,
-                    backgroundImage: AssetImage(AssetHelper.imageBanner),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      body: Container(
+        color: ColorPalette.thirdbgColor,
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Phần trên cùng
+              Container(
+                color: ColorPalette.bgColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
                     children: [
-                      const Text(
-                        'Nguyễn Văn A',
-                        style: TextStyle(
-                          color: ColorPalette.textColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                      const Expanded(
+                        flex: 1,
+                        child: CircleAvatar(
+                          radius: 70,
+                          backgroundImage: AssetImage(AssetHelper.imageBanner),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          // Xử lý khi nhấn vào "View Profile"
-                          // Ví dụ: điều hướng đến trang chi tiết profile
-                        },
-                        child: const Text(
-                          'View Profile',
-                          style: TextStyle(
-                            color: ColorPalette.textOnTapColor,
-                            fontSize: 16,
-                            decoration: TextDecoration.none,
-                          ),
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Nguyễn Văn A',
+                              style: TextStyle(
+                                color: ColorPalette.textColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                // Xử lý khi nhấn vào "View Profile"
+                                // Ví dụ: điều hướng đến trang chi tiết profile
+                              },
+                              child: const Text(
+                                'View Profile',
+                                style: TextStyle(
+                                  color: ColorPalette.textOnTapColor,
+                                  fontSize: 16,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                flex: 1,
+                child: ListView.builder(
+                  padding: EdgeInsets
+                      .zero, // Loại bỏ khoảng cách xung quanh danh sách
+                  itemCount: accountLayouts.length,
+                  itemBuilder: (context, index) {
+                    final request = accountLayouts[index];
+                    return Card(
+                      margin:
+                          const EdgeInsets.all(0.0), // Loại bỏ margin của Card
+                      child: ListTile(
+                        leading: Icon(
+                          request.icon,
+                        ),
+                        title: Text(request.title),
+                        trailing: const Icon(Icons.arrow_forward),
+                        onTap: () {
+                          // Xử lý khi bấm vào một yêu cầu
+                          // Ví dụ: điều hướng đến trang chi tiết yêu cầu
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
           ),
-          Expanded(
-            flex: 1,
-            child: ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount:
-                  accountLayouts.length, // Sửa thành accountLayouts.length
-              itemBuilder: (context, index) {
-                final request = accountLayouts[index];
-                return Card(
-                  margin: EdgeInsets.all(0.0),
-                  child: ListTile(
-                    leading: const Icon(Icons.arrow_forward),
-                    title: Text(request.title),
-                    trailing: const Icon(Icons.arrow_forward),
-                    onTap: () {
-                      // Xử lý khi bấm vào một yêu cầu
-                      // Ví dụ: điều hướng đến trang chi tiết yêu cầu
-                    },
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 }
 
 class AccountLayout {
+  final IconData icon;
   final String title;
 
-  AccountLayout(this.title);
+  AccountLayout(this.title, this.icon);
 }
 
 List<AccountLayout> accountLayouts = [
-  AccountLayout('Bills'),
-  AccountLayout('Requests'),
-  AccountLayout('Apartments'),
-  AccountLayout('Contracts'),
-  AccountLayout('Help'),
+  AccountLayout('Bills', FontAwesomeIcons.fileInvoiceDollar),
+  AccountLayout('Requests', FontAwesomeIcons.notesMedical),
+  AccountLayout('Apartments', FontAwesomeIcons.building),
+  AccountLayout('Contracts', FontAwesomeIcons.fileContract),
+  AccountLayout('Help', FontAwesomeIcons.circleQuestion),
   // Thêm các yêu cầu khác vào đây
 ];

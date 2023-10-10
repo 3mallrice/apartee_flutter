@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
+import 'package:flutter_demo_02/representation/screens/login_page.dart';
 import 'package:flutter_demo_02/representation/screens/splash_screen.dart';
 import 'package:flutter_demo_02/routes.dart';
 
@@ -22,17 +23,6 @@ class MyApp extends StatelessWidget {
       //home: const HomePage(),
       home: const SplashScreen(),
       routes: routes,
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(),
     );
   }
 }
