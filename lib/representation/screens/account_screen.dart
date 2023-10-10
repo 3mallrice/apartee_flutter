@@ -100,15 +100,13 @@ class _AccountScreenState extends State<AccountScreen> {
               Expanded(
                 flex: 1,
                 child: ListView.builder(
-                  shrinkWrap: true, // Loại bỏ khoảng trắng
-                  physics:
-                      const NeverScrollableScrollPhysics(), // Đảm bảo không cuộn được
+                  shrinkWrap: true,
                   padding: EdgeInsets.zero,
                   itemCount: accountLayouts.length,
                   itemBuilder: (context, index) {
                     final request = accountLayouts[index];
                     return Card(
-                      margin: const EdgeInsets.all(2.5),
+                      margin: const EdgeInsets.all(3.5),
                       child: ListTile(
                         leading: Icon(
                           request.icon,
