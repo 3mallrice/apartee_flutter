@@ -33,51 +33,54 @@ class _AccountScreenState extends State<AccountScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Phần trên cùng
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    const Expanded(
-                      flex: 1,
-                      child: CircleAvatar(
-                        radius: 70,
-                        backgroundImage: AssetImage(AssetHelper.imageBanner),
+              Container(
+                color: ColorPalette.bgColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      const Expanded(
+                        flex: 1,
+                        child: CircleAvatar(
+                          radius: 70,
+                          backgroundImage: AssetImage(AssetHelper.imageBanner),
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Nguyễn Văn A',
-                            style: TextStyle(
-                              color: ColorPalette.textColor,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              // Xử lý khi nhấn vào "View Profile"
-                              // Ví dụ: điều hướng đến trang chi tiết profile
-                            },
-                            child: const Text(
-                              'View Profile',
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Nguyễn Văn A',
                               style: TextStyle(
-                                color: ColorPalette.textOnTapColor,
-                                fontSize: 16,
-                                decoration: TextDecoration.none,
+                                color: ColorPalette.textColor,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                // Xử lý khi nhấn vào "View Profile"
+                                // Ví dụ: điều hướng đến trang chi tiết profile
+                              },
+                              child: const Text(
+                                'View Profile',
+                                style: TextStyle(
+                                  color: ColorPalette.textOnTapColor,
+                                  fontSize: 16,
+                                  decoration: TextDecoration.none,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               Expanded(
