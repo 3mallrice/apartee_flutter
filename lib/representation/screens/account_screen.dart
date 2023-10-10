@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
+import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
 import '../../core/const/color_const.dart';
 
@@ -90,13 +91,16 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: ListView.builder(
                   padding: EdgeInsets
                       .zero, // Loại bỏ khoảng cách xung quanh danh sách
-                  itemCount: upcomingRequests.length,
+                  itemCount: accountLayouts.length,
                   itemBuilder: (context, index) {
-                    final request = upcomingRequests[index];
+                    final request = accountLayouts[index];
                     return Card(
                       margin:
                           const EdgeInsets.all(0.0), // Loại bỏ margin của Card
                       child: ListTile(
+                        leading: Icon(
+                          request.icon,
+                        ),
                         title: Text(request.title),
                         trailing: const Icon(Icons.arrow_forward),
                         onTap: () {
@@ -119,17 +123,18 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 }
 
-class UpcomingRequest {
+class AccountLayout {
+  final IconData icon;
   final String title;
 
-  UpcomingRequest(this.title);
+  AccountLayout(this.title, this.icon);
 }
 
-List<UpcomingRequest> upcomingRequests = [
-  UpcomingRequest('Bills'),
-  UpcomingRequest('Requests'),
-  UpcomingRequest('Apartments'),
-  UpcomingRequest('Contracts'),
-  UpcomingRequest('Help'),
+List<AccountLayout> accountLayouts = [
+  AccountLayout('Bills', FontAwesomeIcons.fileInvoiceDollar),
+  AccountLayout('Requests', FontAwesomeIcons.notesMedical),
+  AccountLayout('Apartments', FontAwesomeIcons.building),
+  AccountLayout('Contracts', FontAwesomeIcons.fileContract),
+  AccountLayout('Help', FontAwesomeIcons.circleQuestion),
   // Thêm các yêu cầu khác vào đây
 ];
