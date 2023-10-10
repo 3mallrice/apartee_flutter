@@ -5,6 +5,7 @@ class ColorPalette {
   static const Color secondColor = Color(0x38FF8228);
   static const Color bgColor = Color(0xFFFFFFFF);
   static const Color textColor = Color(0xff333131);
+  static const Color textOnTapColor = Color(0xff11b621);
   static const Color unselectedIcon = Colors.grey;
 }
 
