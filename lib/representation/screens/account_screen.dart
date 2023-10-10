@@ -106,7 +106,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   itemBuilder: (context, index) {
                     final request = accountLayouts[index];
                     return Card(
-                      margin: const EdgeInsets.all(0.0),
+                      margin: const EdgeInsets.all(2.5),
                       child: ListTile(
                         leading: Icon(
                           request.icon,
@@ -122,26 +122,39 @@ class _AccountScreenState extends State<AccountScreen> {
                   },
                 ),
               ),
-
-              Container(
-                color: ColorPalette.thirdbgColor,
-                margin: EdgeInsets.symmetric(vertical: 10),
+              SizedBox(
+                height: 10,
+                child: Container(
+                  color: ColorPalette.thirdbgColor,
+                ),
               ),
 
-              GestureDetector(
-                onTap: () {},
-                child: Container(
-                  padding: const EdgeInsets.all(15),
-                  color: ColorPalette.primaryColor,
-                  child: const Center(
-                    child: Text(
-                      'About Apartee',
-                      style: TextStyle(
-                        color: ColorPalette.bgColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+              ElevatedButton(
+                onPressed: () {
+                  // Xử lý khi nút được nhấn
+                },
+                style: ElevatedButton.styleFrom(
+                  shadowColor: ColorPalette.secondColor,
+                  surfaceTintColor: ColorPalette.primaryColor,
+                  elevation: 5,
+                  backgroundColor:
+                      ColorPalette.bgColor, // Đặt màu nền của nút là màu cam
+                  minimumSize: const Size(
+                      double.infinity, 50), // Tràn hết width và đặt chiều cao
+                ),
+                child: const Text(
+                  'About Apartee',
+                  style: TextStyle(
+                    color:
+                        ColorPalette.primaryColor, // Đặt màu chữ là màu trắng
+                    fontSize: 16,
                   ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+                child: Container(
+                  color: ColorPalette.thirdbgColor,
                 ),
               ),
             ],
