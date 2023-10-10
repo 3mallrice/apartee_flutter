@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
-import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
 import '../../core/const/color_const.dart';
 
@@ -83,14 +82,20 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
               Expanded(
                 flex: 1,
                 child: ListView.builder(
+                  padding: EdgeInsets
+                      .zero, // Loại bỏ khoảng cách xung quanh danh sách
                   itemCount: upcomingRequests.length,
                   itemBuilder: (context, index) {
                     final request = upcomingRequests[index];
                     return Card(
-                      margin: const EdgeInsets.all(8.0),
+                      margin:
+                          const EdgeInsets.all(0.0), // Loại bỏ margin của Card
                       child: ListTile(
                         title: Text(request.title),
                         trailing: const Icon(Icons.arrow_forward),
@@ -102,6 +107,9 @@ class _AccountScreenState extends State<AccountScreen> {
                     );
                   },
                 ),
+              ),
+              const SizedBox(
+                height: 10,
               ),
             ],
           ),
