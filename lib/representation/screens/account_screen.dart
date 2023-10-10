@@ -32,7 +32,7 @@ class _AccountScreenState extends State<AccountScreen> {
             padding: const EdgeInsets.all(16.0),
             child: Row(
               children: [
-                Expanded(
+                const Expanded(
                   flex: 1,
                   child: CircleAvatar(
                     radius: 70,
@@ -75,12 +75,15 @@ class _AccountScreenState extends State<AccountScreen> {
           Expanded(
             flex: 1,
             child: ListView.builder(
-              itemCount: upcomingRequests.length,
+              padding: EdgeInsets.zero,
+              itemCount:
+                  accountLayouts.length, // Sửa thành accountLayouts.length
               itemBuilder: (context, index) {
-                final request = upcomingRequests[index];
+                final request = accountLayouts[index];
                 return Card(
-                  margin: const EdgeInsets.all(8.0),
+                  margin: EdgeInsets.all(0.0),
                   child: ListTile(
+                    leading: const Icon(Icons.arrow_forward),
                     title: Text(request.title),
                     trailing: const Icon(Icons.arrow_forward),
                     onTap: () {
@@ -98,16 +101,17 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 }
 
-class UpcomingRequest {
+class AccountLayout {
   final String title;
 
-  UpcomingRequest(this.title);
+  AccountLayout(this.title);
 }
-List<UpcomingRequest> upcomingRequests = [
-  UpcomingRequest('Bills'),
-  UpcomingRequest('Requests'),
-  UpcomingRequest('Apartments'),
-  UpcomingRequest('Contracts'),
-  UpcomingRequest('Help'),
+
+List<AccountLayout> accountLayouts = [
+  AccountLayout('Bills'),
+  AccountLayout('Requests'),
+  AccountLayout('Apartments'),
+  AccountLayout('Contracts'),
+  AccountLayout('Help'),
   // Thêm các yêu cầu khác vào đây
 ];
