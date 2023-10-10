@@ -144,6 +144,21 @@ class _HomeState extends State<HomeScreen> {
               ),
             ),
           ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 55,
+              child: Center(
+                child: Text(
+                  '© Copyright of Apartee',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: ColorPalette.textColor,
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

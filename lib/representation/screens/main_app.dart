@@ -1,5 +1,3 @@
-// ignore_for_file: constant_identifier_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
@@ -50,7 +48,7 @@ class _MainAppState extends State<MainApp> {
         ),
         extendBody: true,
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.only(bottom: 0),
           child: DotNavigationBar(
             backgroundColor: const Color.fromARGB(182, 164, 144, 124),
             margin: const EdgeInsets.only(left: 5, right: 5),
