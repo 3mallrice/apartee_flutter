@@ -153,12 +153,6 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-                child: Container(
-                  color: ColorPalette.thirdbgColor,
-                ),
-              ),
             ],
           ),
         ),
