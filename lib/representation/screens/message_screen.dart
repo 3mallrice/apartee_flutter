@@ -25,11 +25,10 @@ class _MessageScreenState extends State<MessageScreen> {
         automaticallyImplyLeading: false,
         // bottom: ,
       ),
-
       body: ListView.builder(
-        itemCount: upcomingMessages.length,
+        itemCount: messageLayouts.length,
         itemBuilder: (context, index) {
-          final message = upcomingMessages[index];
+          final message = messageLayouts[index];
           return Card(
             margin: const EdgeInsets.all(8.0),
             child: ListTile(
@@ -48,16 +47,16 @@ class _MessageScreenState extends State<MessageScreen> {
   }
 }
 
-class UpcomingMessage {
+class MessageLayout {
   final String title;
   final String date;
 
-  UpcomingMessage(this.title, this.date);
+  MessageLayout(this.title, this.date);
 }
 
-List<UpcomingMessage> upcomingMessages = [
-  UpcomingMessage('Yêu cầu số 1', '10/10/2023'),
-  UpcomingMessage('Yêu cầu số 2', '15/10/2023'),
-  UpcomingMessage('Yêu cầu số 3', '20/10/2023'),
+List<MessageLayout> messageLayouts = [
+  MessageLayout('Thông báo số 1', '10/10/2023'),
+  MessageLayout('Thông báo số 2', '15/10/2023'),
+  MessageLayout('Thông báo số 3', '20/10/2023'),
   // Thêm các yêu cầu khác vào đây
 ];
