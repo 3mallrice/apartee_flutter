@@ -22,7 +22,7 @@ class _AccountScreenState extends State<AccountScreen> {
           'Account',
           style: TextStyle(color: ColorPalette.textColor, fontSize: 25),
         ),
-        elevation: 3, //create the shadow for app bar
+        elevation: 3,
         automaticallyImplyLeading: false,
       ),
       body: Container(
@@ -33,78 +33,72 @@ class _AccountScreenState extends State<AccountScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Phần trên cùng
-              Container(
-                color: ColorPalette.bgColor,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: SizedBox(
-                    width: 700,
-                    child: Row(
-                      children: [
-                        const Expanded(
-                          flex: 1,
-                          child: CircleAvatar(
-                            radius: 70,
-                            backgroundImage:
-                                AssetImage(AssetHelper.imageBanner),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Nguyễn Văn A',
-                                style: TextStyle(
-                                  color: ColorPalette.textColor,
-                                  fontSize: 21,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  // Xử lý khi nhấn vào "View Profile"
-                                  // Ví dụ: điều hướng đến trang chi tiết profile
-                                },
-                                child: const Text(
-                                  'View Profile',
-                                  style: TextStyle(
-                                    color: ColorPalette.textOnTapColor,
-                                    fontSize: 16,
-                                    decoration: TextDecoration.none,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      flex: 1,
+                      child: CircleAvatar(
+                        radius: 70,
+                        backgroundImage: AssetImage(AssetHelper.imageBanner),
+                      ),
                     ),
-                  ),
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Nguyễn Văn A',
+                            style: TextStyle(
+                              color: ColorPalette.textColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              // Xử lý khi nhấn vào "View Profile"
+                              // Ví dụ: điều hướng đến trang chi tiết profile
+                            },
+                            child: const Text(
+                              'View Profile',
+                              style: TextStyle(
+                                color: ColorPalette.textOnTapColor,
+                                fontSize: 16,
+                                decoration: TextDecoration.none,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: upcomingRequests.length,
-                itemBuilder: (context, index) {
-                  final request = upcomingRequests[index];
-                  return Card(
-                    margin: const EdgeInsets.all(8.0),
-                    child: ListTile(
-                      title: Text(request.title),
-                      subtitle: Text(request.date),
-                      trailing: const Icon(Icons.arrow_forward),
-                      onTap: () {
-                        // Xử lý khi bấm vào một yêu cầu
-                        // Ví dụ: điều hướng đến trang chi tiết yêu cầu
-                      },
-                    ),
-                  );
-                },
+              Expanded(
+                flex: 1,
+                child: ListView.builder(
+                  itemCount: upcomingRequests.length,
+                  itemBuilder: (context, index) {
+                    final request = upcomingRequests[index];
+                    return Card(
+                      margin: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        title: Text(request.title),
+                        trailing: const Icon(Icons.arrow_forward),
+                        onTap: () {
+                          // Xử lý khi bấm vào một yêu cầu
+                          // Ví dụ: điều hướng đến trang chi tiết yêu cầu
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
             ],
           ),
@@ -116,14 +110,15 @@ class _AccountScreenState extends State<AccountScreen> {
 
 class UpcomingRequest {
   final String title;
-  final String date;
 
-  UpcomingRequest(this.title, this.date);
+  UpcomingRequest(this.title);
 }
 
 List<UpcomingRequest> upcomingRequests = [
-  UpcomingRequest('Yêu cầu số 1', '10/10/2023'),
-  UpcomingRequest('Yêu cầu số 2', '15/10/2023'),
-  UpcomingRequest('Yêu cầu số 3', '20/10/2023'),
+  UpcomingRequest('Bills'),
+  UpcomingRequest('Requests'),
+  UpcomingRequest('Apartments'),
+  UpcomingRequest('Contracts'),
+  UpcomingRequest('Help'),
   // Thêm các yêu cầu khác vào đây
 ];
