@@ -26,12 +26,18 @@ class _AccountScreenState extends State<AccountScreen> {
         automaticallyImplyLeading: false,
       ),
       body: Container(
-        color: ColorPalette.thirdbgColor,
+        color: ColorPalette.bgColor,
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(
+                height: 10,
+                child: Container(
+                  color: ColorPalette.thirdbgColor,
+                ),
+              ),
               // Phần trên cùng
               Container(
                 color: ColorPalette.bgColor,
@@ -83,20 +89,24 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 10,
+                child: Container(
+                  color: ColorPalette.thirdbgColor,
+                ),
               ),
               Expanded(
                 flex: 1,
                 child: ListView.builder(
-                  padding: EdgeInsets
-                      .zero, // Loại bỏ khoảng cách xung quanh danh sách
+                  shrinkWrap: true, // Loại bỏ khoảng trắng
+                  physics:
+                      const NeverScrollableScrollPhysics(), // Đảm bảo không cuộn được
+                  padding: EdgeInsets.zero,
                   itemCount: accountLayouts.length,
                   itemBuilder: (context, index) {
                     final request = accountLayouts[index];
                     return Card(
-                      margin:
-                          const EdgeInsets.all(0.0), // Loại bỏ margin của Card
+                      margin: const EdgeInsets.all(0.0),
                       child: ListTile(
                         leading: Icon(
                           request.icon,
@@ -112,8 +122,27 @@ class _AccountScreenState extends State<AccountScreen> {
                   },
                 ),
               ),
-              const SizedBox(
-                height: 10,
+
+              Container(
+                color: ColorPalette.thirdbgColor,
+                margin: EdgeInsets.symmetric(vertical: 10),
+              ),
+
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  padding: const EdgeInsets.all(15),
+                  color: ColorPalette.primaryColor,
+                  child: const Center(
+                    child: Text(
+                      'About Apartee',
+                      style: TextStyle(
+                        color: ColorPalette.bgColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -133,8 +162,9 @@ class AccountLayout {
 List<AccountLayout> accountLayouts = [
   AccountLayout('Bills', FontAwesomeIcons.fileInvoiceDollar),
   AccountLayout('Requests', FontAwesomeIcons.notesMedical),
-  AccountLayout('Apartments', FontAwesomeIcons.building),
+  AccountLayout('Apartments', FontAwesomeIcons.solidBuilding),
   AccountLayout('Contracts', FontAwesomeIcons.fileContract),
-  AccountLayout('Help', FontAwesomeIcons.circleQuestion),
+  AccountLayout('Packages', FontAwesomeIcons.cubes),
+  AccountLayout('Services', FontAwesomeIcons.ethernet),
   // Thêm các yêu cầu khác vào đây
 ];
