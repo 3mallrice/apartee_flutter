@@ -42,7 +42,7 @@ class _MainAppState extends State<MainApp> {
         body: IndexedStack(
           index: _selectedTab.index,
           children: const [
-            Home(),
+            HomeScreen(),
             RequestScreen(),
             MessageScreen(),
             const AccountScreen(),
