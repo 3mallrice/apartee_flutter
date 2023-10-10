@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
+import 'package:flutter_demo_02/representation/screens/profile_screen.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
 import '../../core/const/color_const.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
+  static const routName = 'account';
 
   @override
   State<AccountScreen> createState() => _AccountScreenState();
@@ -70,8 +72,8 @@ class _AccountScreenState extends State<AccountScreen> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                // Xử lý khi nhấn vào "View Profile"
-                                // Ví dụ: điều hướng đến trang chi tiết profile
+                                Navigator.of(context)
+                                    .pushNamed(Profile.routName);
                               },
                               child: const Text(
                                 'View Profile',

@@ -4,8 +4,7 @@ import 'package:flutter_demo_02/core/const/color_const.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  static const routName = 'home_screen';
+  static const routName = 'home';
   @override
   State<HomeScreen> createState() => _HomeState();
 }
@@ -17,15 +16,27 @@ class _HomeState extends State<HomeScreen> {
     'assets/imgs/banner2.png'
   ];
 
+  List<IconData> iconList = [
+    Icons.home,
+    Icons.favorite,
+    Icons.star,
+    Icons.phone,
+    Icons.mail,
+    Icons.camera,
+    Icons.games,
+    Icons.music_note,
+    Icons.shopping_cart,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
       body: CustomScrollView(
+        primary: false,
+        shrinkWrap: true,
         slivers: [
-          //Sliver app bar
           SliverAppBar(
-            // pinned: true,
             backgroundColor: ColorPalette.primaryColor.withOpacity(0.2),
             automaticallyImplyLeading: false,
             flexibleSpace: FlexibleSpaceBar(
@@ -37,8 +48,7 @@ class _HomeState extends State<HomeScreen> {
                     fit: BoxFit.cover,
                   ),
                   Container(
-                    color: Colors.black
-                        .withOpacity(0.4), // Độ trong suốt của màu đen
+                    color: Colors.black.withOpacity(0.4),
                   ),
                 ],
               ),
@@ -54,7 +64,6 @@ class _HomeState extends State<HomeScreen> {
             ),
             expandedHeight: 200,
           ),
-
           SliverToBoxAdapter(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -63,30 +72,78 @@ class _HomeState extends State<HomeScreen> {
                   width: 900,
                 ),
                 FanCarouselImageSlider(
-                    imagesLink: sampleImages,
-                    sliderHeight: 200,
-                    sliderWidth: 700,
-                    isAssets: true,
-                    autoPlay: false,
-                    imageRadius: 12,
-                    autoPlayInterval: const Duration(milliseconds: 10000),
-                    // isClickable: false,
-                    expandedImageFitMode: BoxFit.contain),
+                  imagesLink: sampleImages,
+                  sliderHeight: 200,
+                  sliderWidth: 700,
+                  isAssets: true,
+                  autoPlay: false,
+                  imageRadius: 12,
+                  autoPlayInterval: const Duration(milliseconds: 10000),
+                  expandedImageFitMode: BoxFit.contain,
+                ),
               ],
             ),
           ),
-
-          SliverToBoxAdapter(
-              child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                height: 400,
-                color: ColorPalette.secondColor,
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.only(left: 30.0), // Căn trái
+              child: Text(
+                "Packages",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: ColorPalette.textColor,
+                ),
               ),
             ),
-          )),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(30),
+            sliver: SliverGrid(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                childAspectRatio: 1.0, // Điều này có thể làm cho ô lớn hơn
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  IconData iconData = iconList[index];
+
+                  return InkWell(
+                    onTap: () {
+                      //ontap
+                    },
+                    child: GridTile(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(35),
+                        child: Container(
+                          color: const Color(0x38FF8228), // Màu cố định
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                iconData,
+                                color: ColorPalette.primaryColor,
+                                size: 30,
+                              ),
+                              Text(
+                                "Package $index", // Thay đổi nội dung văn bản ở đây
+                                style: const TextStyle(
+                                  color: ColorPalette.textColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                childCount: 9,
+              ),
+            ),
+          ),
         ],
       ),
     );
