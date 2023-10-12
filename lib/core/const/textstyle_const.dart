@@ -10,7 +10,7 @@ class TextStyles {
     fontSize: 14,
     color: ColorPalette.textColor,
     fontWeight: FontWeight.w400,
-    height: 16/14,
+    height: 16 / 14,
   );
 }
 
@@ -23,48 +23,49 @@ extension ExtendedTextStyle on TextStyle {
     return copyWith(fontWeight: FontWeight.w400);
   }
 
-  TextStyle get italic{
+  TextStyle get italic {
     return copyWith(
       fontWeight: FontWeight.normal,
       fontStyle: FontStyle.italic,
     );
   }
 
-  TextStyle get medium{
+  TextStyle get medium {
     return copyWith(fontWeight: FontWeight.w500);
   }
 
   TextStyle get fontHeader {
     return copyWith(
       fontSize: 22,
-      height: 22/20,
+      height: 22 / 20,
     );
   }
 
   TextStyle get fontCaption {
-    return copyWith(
-      fontSize: 12,
-      height: 12/10
-    );
+    return copyWith(fontSize: 12, height: 12 / 10);
   }
 
-  TextStyle get semibold{
+  TextStyle get semibold {
     return copyWith(fontWeight: FontWeight.w600);
   }
 
-  TextStyle get bold{
+  TextStyle get bold {
     return copyWith(fontWeight: FontWeight.w700);
   }
 
-  TextStyle get textColor{
+  TextStyle get textColor {
     return copyWith(color: ColorPalette.textColor);
   }
 
-  TextStyle setColor(Color color){
+  TextStyle setColor(Color color) {
     return copyWith(color: color);
   }
 
-  TextStyle setTextSize(double size){
+  TextStyle setTextSize(double size) {
     return copyWith(fontSize: size);
+  }
+
+  TextStyle get whiteTextColor {
+    return copyWith(color: Colors.white);
   }
 }

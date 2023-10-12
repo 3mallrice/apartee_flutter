@@ -5,6 +5,7 @@ import 'package:flutter_demo_02/representation/screens/account_screen.dart';
 import 'package:flutter_demo_02/representation/screens/home_screen.dart';
 import 'package:flutter_demo_02/representation/screens/message_screen.dart';
 import 'package:flutter_demo_02/representation/screens/request_screen.dart';
+// ignore: implementation_imports
 import 'package:font_awesome_icon_class/src/font_awesome_icon_class.dart';
 
 class MainApp extends StatefulWidget {
