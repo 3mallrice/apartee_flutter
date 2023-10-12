@@ -9,6 +9,7 @@ class ColorPalette {
   static const Color textColor = Color(0xff333131);
   static const Color textOnTapColor = Color(0xff11b621);
   static const Color unselectedIcon = Colors.grey;
+  static const Color spaceLine = Color.fromARGB(77, 209, 208, 208);
 }
 
 class Gradients {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_02/components/account_button.dart';
+import 'package:flutter_demo_02/components/my_button.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 import 'package:flutter_demo_02/representation/screens/profile_screen.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
@@ -34,12 +36,7 @@ class _AccountScreenState extends State<AccountScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 10,
-                child: Container(
-                  color: ColorPalette.thirdbgColor,
-                ),
-              ),
+              Box.sizedBox(10, ColorPalette.secondColor, null),
               // Phần trên cùng
               Container(
                 color: ColorPalette.bgColor,
@@ -67,9 +64,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(
-                              height: 8,
-                            ),
+                            Box.sizedBox(2, null, null),
                             GestureDetector(
                               onTap: () {
                                 Navigator.of(context)
@@ -91,65 +86,97 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
-                child: Container(
-                  color: ColorPalette.thirdbgColor,
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  itemCount: accountLayouts.length,
-                  itemBuilder: (context, index) {
-                    final request = accountLayouts[index];
-                    return Card(
-                      margin: const EdgeInsets.all(3.5),
-                      child: ListTile(
-                        leading: Icon(
-                          request.icon,
-                        ),
-                        title: Text(request.title),
-                        trailing: const Icon(Icons.arrow_forward),
-                        onTap: () {
-                          // Xử lý khi bấm vào một yêu cầu
-                          // Ví dụ: điều hướng đến trang chi tiết yêu cầu
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 10,
-                child: Container(
-                  color: ColorPalette.thirdbgColor,
-                ),
-              ),
+              Box.sizedBox(10, ColorPalette.secondColor, null),
+
+              const MyAccountButton(
+                  text: 'Bills',
+                  leftIcon: FontAwesomeIcons.fileInvoiceDollar,
+                  rightIcon: Icons.arrow_forward),
+              Box.sizedBox(1, ColorPalette.spaceLine, null),
+
+              const MyAccountButton(
+                  text: 'Requests',
+                  leftIcon: FontAwesomeIcons.notesMedical,
+                  rightIcon: Icons.arrow_forward),
+              Box.sizedBox(1, ColorPalette.spaceLine, null),
+
+              const MyAccountButton(
+                  text: 'Apartment',
+                  leftIcon: FontAwesomeIcons.solidBuilding,
+                  rightIcon: Icons.arrow_forward),
+              Box.sizedBox(1, ColorPalette.spaceLine, null),
+
+              const MyAccountButton(
+                  text: 'Contracts',
+                  leftIcon: FontAwesomeIcons.fileContract,
+                  rightIcon: Icons.arrow_forward),
+              Box.sizedBox(1, ColorPalette.spaceLine, null),
+
+              const MyAccountButton(
+                  text: 'Package',
+                  leftIcon: FontAwesomeIcons.cubes,
+                  rightIcon: Icons.arrow_forward),
+              Box.sizedBox(1, ColorPalette.spaceLine, null),
+
+              const MyAccountButton(
+                  text: 'Services',
+                  leftIcon: FontAwesomeIcons.ethernet,
+                  rightIcon: Icons.arrow_forward),
+              Box.sizedBox(1, ColorPalette.spaceLine, null),
 
               ElevatedButton(
                 onPressed: () {
-                  // Xử lý khi nút được nhấn
+                  OnPress.onPressed();
                 },
                 style: ElevatedButton.styleFrom(
                   shadowColor: ColorPalette.secondColor,
                   surfaceTintColor: ColorPalette.primaryColor,
                   elevation: 5,
-                  backgroundColor:
-                      ColorPalette.bgColor, // Đặt màu nền của nút là màu cam
-                  minimumSize: const Size(
-                      double.infinity, 50), // Tràn hết width và đặt chiều cao
+                  backgroundColor: ColorPalette.bgColor,
+                  minimumSize: const Size(300, 51),
                 ),
-                child: const Text(
-                  'About Apartee',
-                  style: TextStyle(
-                    color:
-                        ColorPalette.primaryColor, // Đặt màu chữ là màu trắng
-                    fontSize: 16,
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: CircleAvatar(
+                        radius: 15,
+                        backgroundColor: ColorPalette.primaryColor,
+                        child: Image.asset(
+                          'assets/imgs/logo.png',
+                          width: 50,
+                          height: 50,
+                          color: ColorPalette.bgColor,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 25,
+                    ),
+                    const SizedBox(
+                      width: 300,
+                      child: Text(
+                        'About Apartee',
+                        style: TextStyle(
+                            color: ColorPalette.textColor,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const Expanded(flex: 1, child: SizedBox()),
+                  ],
                 ),
+              ),
+              Box.sizedBox(1, ColorPalette.spaceLine, null),
+              Box.sizedBox(20, ColorPalette.bgColor, null),
+
+              //Logout
+              MyButton(
+                onTap: OnTap.onTap(),
+                text: 'Logout',
+                color: ColorPalette.secondColor,
+                textColor: ColorPalette.primaryColor,
               ),
             ],
           ),
@@ -159,19 +186,26 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 }
 
-class AccountLayout {
-  final IconData icon;
-  final String title;
-
-  AccountLayout(this.title, this.icon);
+class OnPress {
+  static void Function()? onPressed() {
+    return null;
+  }
 }
 
-List<AccountLayout> accountLayouts = [
-  AccountLayout('Bills', FontAwesomeIcons.fileInvoiceDollar),
-  AccountLayout('Requests', FontAwesomeIcons.notesMedical),
-  AccountLayout('Apartments', FontAwesomeIcons.solidBuilding),
-  AccountLayout('Contracts', FontAwesomeIcons.fileContract),
-  AccountLayout('Packages', FontAwesomeIcons.cubes),
-  AccountLayout('Services', FontAwesomeIcons.ethernet),
-  // Thêm các yêu cầu khác vào đây
-];
+class OnTap {
+  static dynamic Function()? onTap() {
+    return null;
+  }
+}
+
+class Box {
+  static SizedBox sizedBox(double? height, Color? color, double? width) {
+    return SizedBox(
+      height: height,
+      width: width,
+      child: Container(
+        color: color,
+      ),
+    );
+  }
+}
