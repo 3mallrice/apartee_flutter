@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
 import '../../core/const/color_const.dart';
@@ -15,26 +16,18 @@ class _RequestScreenState extends State<RequestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
-      appBar: AppBar(
-        backgroundColor: ColorPalette.bgColor,
-        title: const Text(
-          'Request',
-          style: TextStyle(color: ColorPalette.textColor, fontSize: 25),
-        ),
-        actions: [
+      appBar: AppBarCom(
+        appBarText: 'Request',
+        action: [
           Padding(
               padding: const EdgeInsets.fromLTRB(0, 6, 5, 5),
               child: IconButton(
                 onPressed: () {},
                 icon: const FaIcon(FontAwesomeIcons.clockRotateLeft),
-                color: ColorPalette.textColor,
+                color: ColorPalette.bgColor,
               )),
         ],
-        elevation: 3, //create the shadow for app bar
-        automaticallyImplyLeading: false,
-        // bottom: ,
       ),
-
       body: ListView.builder(
         itemCount: upcomingRequests.length,
         itemBuilder: (context, index) {

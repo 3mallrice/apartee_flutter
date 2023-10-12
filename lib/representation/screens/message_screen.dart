@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_02/components/app_bar.dart';
 import '../../core/const/color_const.dart';
 
 class MessageScreen extends StatefulWidget {
@@ -13,15 +14,8 @@ class _MessageScreenState extends State<MessageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
-      appBar: AppBar(
-        backgroundColor: ColorPalette.bgColor,
-        title: const Text(
-          'Message',
-          style: TextStyle(color: ColorPalette.textColor, fontSize: 25),
-        ),
-        elevation: 3, //create the shadow for app bar
-        automaticallyImplyLeading: false,
-        // bottom: ,
+      appBar: const AppBarCom(
+        appBarText: 'Message',
       ),
       body: ListView.builder(
         itemCount: messageLayouts.length,

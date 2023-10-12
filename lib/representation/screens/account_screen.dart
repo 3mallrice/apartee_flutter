@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/account_button.dart';
+import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/components/my_button.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 import 'package:flutter_demo_02/representation/screens/profile_screen.dart';
@@ -20,14 +21,19 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
-      appBar: AppBar(
-        backgroundColor: ColorPalette.bgColor,
-        title: const Text(
-          'Account',
-          style: TextStyle(color: ColorPalette.textColor, fontSize: 25),
-        ),
-        elevation: 3,
-        automaticallyImplyLeading: false,
+      // appBar: AppBar(
+      //   backgroundColor: ColorPalette.primaryColor,
+      //   title: const Text(
+      //     'Account',
+      //     style: TextStyle(color: ColorPalette.bgColor, fontSize: 25),
+      //   ),
+      //   elevation: 3,
+      //   automaticallyImplyLeading: false,
+      // ),
+      appBar: const AppBarCom(
+        appBarText: 'Account',
+        textColor: ColorPalette.bgColor,
+        backgroundColor: ColorPalette.primaryColor,
       ),
       body: Container(
         color: ColorPalette.bgColor,
