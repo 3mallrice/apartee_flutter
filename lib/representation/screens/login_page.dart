@@ -92,7 +92,10 @@ class LoginPage extends StatelessWidget {
                 ),
 
                 //sign-in button
-                MyButton(onTap: signUserIn),
+                MyButton(
+                  onTap: signUserIn,
+                  text: 'Login',
+                ),
 
                 const SizedBox(
                   height: 50,
