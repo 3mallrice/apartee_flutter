@@ -32,9 +32,9 @@ class AppBarCom extends StatelessWidget implements PreferredSizeWidget {
         title: Text(
           appBarText,
           style: TextStyle(
-            color: textColor ?? ColorPalette.bgColor,
-            fontSize: 25,
-          ),
+              color: textColor ?? ColorPalette.bgColor,
+              fontSize: 22,
+              fontWeight: FontWeight.bold),
         ),
         elevation: 3,
         actions: action,

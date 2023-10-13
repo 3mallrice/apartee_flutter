@@ -5,20 +5,20 @@ class MyAccountButton extends StatelessWidget {
   final String text;
   final IconData leftIcon;
   final IconData? rightIcon;
+  final Function()? onPressed;
 
   const MyAccountButton({
     super.key,
     required this.text,
     required this.leftIcon,
     required this.rightIcon,
+    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        // Handle button press
-      },
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         shadowColor: ColorPalette.secondColor,
         surfaceTintColor: ColorPalette.primaryColor,

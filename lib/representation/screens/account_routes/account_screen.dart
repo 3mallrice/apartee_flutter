@@ -3,10 +3,17 @@ import 'package:flutter_demo_02/components/account_button.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/components/my_button.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
-import 'package:flutter_demo_02/representation/screens/profile_screen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/apartee_screen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/apartment_screen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/bill_sceen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/contract_screen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/profile_screen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/request_screen.dart';
+import 'package:flutter_demo_02/representation/screens/package_screen.dart';
+import 'package:flutter_demo_02/representation/screens/service_screen.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
-import '../../core/const/color_const.dart';
+import '../../../core/const/color_const.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -85,45 +92,69 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               Box.sizedBox(10, ColorPalette.secondColor, null),
 
-              const MyAccountButton(
-                  text: 'Bills',
-                  leftIcon: FontAwesomeIcons.fileInvoiceDollar,
-                  rightIcon: Icons.arrow_forward),
+              MyAccountButton(
+                text: 'Bills',
+                leftIcon: FontAwesomeIcons.fileInvoiceDollar,
+                rightIcon: Icons.arrow_forward,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(MyBillScreen.routName);
+                },
+              ),
               Box.sizedBox(1, ColorPalette.spaceLine, null),
 
-              const MyAccountButton(
-                  text: 'Requests',
-                  leftIcon: FontAwesomeIcons.notesMedical,
-                  rightIcon: Icons.arrow_forward),
+              MyAccountButton(
+                text: 'Requests',
+                leftIcon: FontAwesomeIcons.notesMedical,
+                rightIcon: Icons.arrow_forward,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(MyRequestScreen.routName);
+                },
+              ),
               Box.sizedBox(1, ColorPalette.spaceLine, null),
 
-              const MyAccountButton(
-                  text: 'Apartment',
-                  leftIcon: FontAwesomeIcons.solidBuilding,
-                  rightIcon: Icons.arrow_forward),
+              MyAccountButton(
+                text: 'Apartments',
+                leftIcon: FontAwesomeIcons.solidBuilding,
+                rightIcon: Icons.arrow_forward,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(MyApartmentScreen.routName);
+                },
+              ),
               Box.sizedBox(1, ColorPalette.spaceLine, null),
 
-              const MyAccountButton(
-                  text: 'Contracts',
-                  leftIcon: FontAwesomeIcons.fileContract,
-                  rightIcon: Icons.arrow_forward),
+              MyAccountButton(
+                text: 'Contracts',
+                leftIcon: FontAwesomeIcons.fileContract,
+                rightIcon: Icons.arrow_forward,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(MyContractScreen.routName);
+                },
+              ),
               Box.sizedBox(1, ColorPalette.spaceLine, null),
 
-              const MyAccountButton(
-                  text: 'Package',
-                  leftIcon: FontAwesomeIcons.cubes,
-                  rightIcon: Icons.arrow_forward),
+              MyAccountButton(
+                text: 'Packages',
+                leftIcon: FontAwesomeIcons.cubes,
+                rightIcon: Icons.arrow_forward,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(PackageScreen.routName);
+                },
+              ),
               Box.sizedBox(1, ColorPalette.spaceLine, null),
 
-              const MyAccountButton(
-                  text: 'Services',
-                  leftIcon: FontAwesomeIcons.ethernet,
-                  rightIcon: Icons.arrow_forward),
+              MyAccountButton(
+                text: 'Services',
+                leftIcon: FontAwesomeIcons.ethernet,
+                rightIcon: Icons.arrow_forward,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(ServiceScreen.routName);
+                },
+              ),
               Box.sizedBox(1, ColorPalette.spaceLine, null),
 
               ElevatedButton(
                 onPressed: () {
-                  OnPress.onPressed();
+                  Navigator.of(context).pushNamed(Apartee.routName);
                 },
                 style: ElevatedButton.styleFrom(
                   shadowColor: ColorPalette.secondColor,

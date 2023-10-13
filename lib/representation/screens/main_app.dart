@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
-import 'package:flutter_demo_02/representation/screens/account_screen.dart';
-import 'package:flutter_demo_02/representation/screens/home_screen.dart';
-import 'package:flutter_demo_02/representation/screens/message_screen.dart';
-import 'package:flutter_demo_02/representation/screens/request_screen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/account_screen.dart';
+import 'package:flutter_demo_02/representation/screens/home_routes/home_screen.dart';
+import 'package:flutter_demo_02/representation/screens/message_routes/message_screen.dart';
+import 'package:flutter_demo_02/representation/screens/request_routes/request_screen.dart';
 // ignore: implementation_imports
 import 'package:font_awesome_icon_class/src/font_awesome_icon_class.dart';
 
