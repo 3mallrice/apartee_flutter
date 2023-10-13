@@ -8,7 +8,7 @@ import 'package:flutter_demo_02/representation/screens/main_app.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
-  static String routName = '/splash_screen'; // Đã chỉnh sửa routeName
+  static String routName = '/splash_screen';
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -21,19 +21,18 @@ class _SplashScreenState extends State<SplashScreen> {
     redirectIntro();
   }
 
-  void redirectIntro() {
+  void redirectIntro() async {
+    //await LocalStorageHelper.initLocalStorageHelper(); // Mở Hive box
     final ignoreIntroScreen =
-        LocalStorageHelper.getValue('ignoreIntroScreen') as bool?;
+        await LocalStorageHelper.getValue('ignoreIntroScreen') as bool?;
+    await Future.delayed(const Duration(milliseconds: 2000));
 
-    Future.delayed(const Duration(seconds: 2), () {
-      if (ignoreIntroScreen != null && ignoreIntroScreen == true) {
-        Navigator.of(context).pushNamed(MainApp.routName);
-      } else {
-        LocalStorageHelper.setValue(
-            'ignoreIntroScreen', true); // Đặt thành true
-        Navigator.of(context).pushNamed(IntroScreen.routName);
-      }
-    });
+    if (ignoreIntroScreen != null && ignoreIntroScreen) {
+      Navigator.of(context).pushNamed(MainApp.routName);
+    } else {
+      LocalStorageHelper.setValue('ignoreIntroScreen', true);
+      Navigator.of(context).pushNamed(IntroScreen.routName);
+    }
   }
 
   @override
@@ -42,8 +41,10 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: const Color(0xFFFF8228),
       body: Stack(
         children: [
-          ImageHelper.loadFormAsset(AssetHelper.imageLogoSplash,
-              fit: BoxFit.fitWidth), // Đã chỉnh sửa loadFromAsset
+          Positioned.fill(
+            child: ImageHelper.loadFormAsset(AssetHelper.imageLogoSplash,
+                fit: BoxFit.fitWidth),
+          )
         ],
       ),
     );

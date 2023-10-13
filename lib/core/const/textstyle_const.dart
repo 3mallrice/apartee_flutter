@@ -15,6 +15,7 @@ class TextStyles {
 }
 
 extension ExtendedTextStyle on TextStyle {
+  // ignore: non_constant_identifier_names
   TextStyle get Light {
     return copyWith(fontWeight: FontWeight.w300);
   }

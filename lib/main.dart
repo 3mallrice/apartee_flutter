@@ -6,7 +6,7 @@ import 'package:flutter_demo_02/routes.dart';
 import 'package:hive_flutter/adapters.dart';
 
 void main() async {
-  runApp(const MyApp());
+  // runApp(const MyApp());
   await Hive.initFlutter();
   await LocalStorageHelper.initLocalStorageHelper();
   runApp(const MyApp());
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Apartee app',
       theme: ThemeData(
         primaryColor: ColorPalette.primaryColor,
-        scaffoldBackgroundColor: ColorPalette.bgColor,
+        scaffoldBackgroundColor: ColorPalette.primaryColor,
       ),
       debugShowCheckedModeBanner: false,
       //home: const HomePage(),

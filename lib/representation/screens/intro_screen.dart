@@ -8,9 +8,11 @@ import 'package:flutter_demo_02/representation/widgets/ButtonWidget.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
+
   static String routName = '/intro_screen';
 
   @override
+  // ignore: library_private_types_in_public_api
   _IntroScreenState createState() => _IntroScreenState();
 }
 

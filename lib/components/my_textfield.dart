@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 
 class MyTextfield extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables, non_constant_identifier_names
   final Controller;
   final String hintText;
   final bool obscureText;
 
   const MyTextfield({
     super.key,
+    // ignore: non_constant_identifier_names
     required this.Controller,
     required this.obscureText,
     required this.hintText,

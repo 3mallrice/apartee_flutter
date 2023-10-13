@@ -91,4 +91,5 @@ class _MainAppState extends State<MainApp> {
   }
 }
 
+// ignore: constant_identifier_names
 enum _SelectedTab { Home, Request, Message, Account }

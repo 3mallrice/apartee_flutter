@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
-import 'package:flutter_demo_02/representation/screens/main_app.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
 class Profile extends StatelessWidget {
@@ -23,7 +22,7 @@ class Profile extends StatelessWidget {
             color: ColorPalette.textColor,
           ),
           onPressed: () {
-            Navigator.of(context).pushNamed(MainApp.routName);
+            Navigator.pop(context);
             //Navigator.of(context).pushNamed(AccountScreen.routName);
           },
         ),
