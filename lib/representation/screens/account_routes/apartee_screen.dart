@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
-import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
 class Apartee extends StatelessWidget {
   const Apartee({super.key});
@@ -19,7 +18,7 @@ class Apartee extends StatelessWidget {
         elevation: 3, //create the shadow for app
         leading: IconButton(
           icon: const Icon(
-            FontAwesomeIcons.arrowLeft,
+            Icons.arrow_back_ios_new_rounded,
             color: ColorPalette.textColor,
           ),
           onPressed: () {

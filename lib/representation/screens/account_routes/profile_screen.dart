@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
-import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -15,7 +14,7 @@ class Profile extends StatelessWidget {
           leading: true,
           leftIcon: IconButton(
             icon: const Icon(
-              FontAwesomeIcons.arrowLeft,
+              Icons.arrow_back_ios_new_rounded,
               color: ColorPalette.bgColor,
             ),
             onPressed: () {

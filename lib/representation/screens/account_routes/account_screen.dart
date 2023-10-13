@@ -21,15 +21,6 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
-      // appBar: AppBar(
-      //   backgroundColor: ColorPalette.primaryColor,
-      //   title: const Text(
-      //     'Account',
-      //     style: TextStyle(color: ColorPalette.bgColor, fontSize: 25),
-      //   ),
-      //   elevation: 3,
-      //   automaticallyImplyLeading: false,
-      // ),
       appBar: const AppBarCom(
         appBarText: 'Account',
         textColor: ColorPalette.bgColor,
@@ -70,7 +61,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Box.sizedBox(2, null, null),
+                            Box.sizedBox(8, null, null),
                             GestureDetector(
                               onTap: () {
                                 Navigator.of(context)
