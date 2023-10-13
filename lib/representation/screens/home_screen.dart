@@ -1,6 +1,8 @@
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
+import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -11,23 +13,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeState extends State<HomeScreen> {
   static const List<String> sampleImages = [
-    'assets/imgs/banner.webp',
-    'assets/imgs/banner_1.png',
-    'assets/imgs/banner2.png'
+    AssetHelper.imageBanner,
+    AssetHelper.imageBanner1,
+    AssetHelper.imageBanner2
   ];
-
-  List<IconData> iconList = [
-    Icons.home,
-    Icons.favorite,
-    Icons.star,
-    Icons.phone,
-    Icons.mail,
-    Icons.camera,
-    Icons.games,
-    Icons.music_note,
-    Icons.shopping_cart,
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,53 +83,6 @@ class _HomeState extends State<HomeScreen> {
                   fontWeight: FontWeight.bold,
                   color: ColorPalette.textColor,
                 ),
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.all(30),
-            sliver: SliverGrid(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                childAspectRatio: 1.0, // Điều này có thể làm cho ô lớn hơn
-              ),
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  IconData iconData = iconList[index];
-
-                  return InkWell(
-                    onTap: () {
-                      //ontap
-                    },
-                    child: GridTile(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(35),
-                        child: Container(
-                          color: const Color(0x38FF8228), // Màu cố định
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                iconData,
-                                color: ColorPalette.primaryColor,
-                                size: 30,
-                              ),
-                              Text(
-                                "Package $index", // Thay đổi nội dung văn bản ở đây
-                                style: const TextStyle(
-                                  color: ColorPalette.textColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                childCount: 9,
               ),
             ),
           ),
