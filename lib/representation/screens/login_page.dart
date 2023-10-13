@@ -3,8 +3,10 @@ import 'package:flutter_demo_02/components/my_button.dart';
 import 'package:flutter_demo_02/components/my_textfield.dart';
 import 'package:flutter_demo_02/components/square_title.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
+import 'package:flutter_demo_02/representation/screens/main_app.dart';
 
 class LoginPage extends StatelessWidget {
+  static const routeName = 'login';
   LoginPage({super.key});
 
   //text controller
@@ -17,155 +19,146 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: ColorPalette.bgColor,
+        backgroundColor: ColorPalette.primaryColor,
         body: SafeArea(
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 40,
-                ),
-
-                //logo
-                SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Image.asset(
-                    'assets/imgs/logo.png',
-                    color: ColorPalette.primaryColor,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 10,
                   ),
-                ),
 
-                const SizedBox(
-                  height: 10,
-                ),
-
-                //welcome back, you've been missed!
-                Text(
-                  'Welcome back, you\'ve been missed!',
-                  style: TextStyle(color: Colors.grey[700], fontSize: 16),
-                ),
-
-                const SizedBox(
-                  height: 30,
-                ),
-
-                //username textfield
-                const MyTextfield(
-                  Controller: TextEditingController,
-                  hintText: 'Username',
-                  obscureText: false,
-                ),
-
-                const SizedBox(
-                  height: 5,
-                ),
-
-                //password textfield
-                const MyTextfield(
-                  Controller: TextEditingController,
-                  obscureText: true,
-                  hintText: 'Password',
-                ),
-
-                const SizedBox(
-                  height: 30,
-                ),
-
-                //forgot password
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        'Forgot password?',
-                        style: TextStyle(color: ColorPalette.unselectedIcon),
-                      ),
-                    ],
+                  //logo
+                  SizedBox(
+                    width: 250,
+                    height: 250,
+                    child: Image.asset(
+                      'assets/imgs/logo.png',
+                      color: ColorPalette.bgColor,
+                    ),
                   ),
-                ),
 
-                const SizedBox(
-                  height: 25,
-                ),
+                  const SizedBox(
+                    height: 5,
+                  ),
 
-                //sign-in button
-                MyButton(
-                  onTap: signUserIn,
-                  text: 'Login',
-                ),
+                  //welcome back, you've been missed!
+                  const Text(
+                    'Welcome back, you\'ve been missed!',
+                    style: TextStyle(
+                      color: ColorPalette.bgColor,
+                      fontSize: 19,
+                    ),
+                  ),
 
-                const SizedBox(
-                  height: 50,
-                ),
+                  const SizedBox(
+                    height: 30,
+                  ),
 
-                //or continue with
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(thickness: 0.5, color: Colors.grey[400]),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text(
-                          'Or continue with',
-                          style: TextStyle(color: Colors.grey[700]),
+                  //username textfield
+                  MyTextfield(
+                    Controller: usernameController,
+                    hintText: 'Username',
+                    obscureText: false,
+                  ),
+
+                  const SizedBox(
+                    height: 12,
+                  ),
+
+                  //password textfield
+                  MyTextfield(
+                    Controller: passwordController,
+                    obscureText: true,
+                    hintText: 'Password',
+                  ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
+
+                  //forgot password
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          'Forgot password?',
+                          style: TextStyle(color: ColorPalette.bgColor),
                         ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  //sign-in button
+                  MyButton(
+                    //onTap: signUserIn,
+                    onTap: () {
+                      Navigator.of(context).pushNamed(MainApp.routName);
+                    },
+                    text: 'Login',
+                    color: ColorPalette.bgColor,
+                    textColor: ColorPalette.primaryColor,
+                  ),
+
+                  const SizedBox(
+                    height: 30,
+                  ),
+
+                  //or continue with
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                              thickness: 0.5, color: ColorPalette.bgColor),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: Text(
+                            'Or continue with',
+                            style: TextStyle(color: ColorPalette.bgColor),
+                          ),
+                        ),
+                        Expanded(
+                          child: Divider(color: ColorPalette.bgColor),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  //Google + Facebook buttons
+
+                  const SizedBox(
+                    height: 20,
+                  ),
+
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SquareTitle(imgPath: "assets/imgs/google.png"),
+                      SizedBox(
+                        width: 10,
                       ),
-                      Expanded(
-                        child: Divider(thickness: 0.5, color: Colors.grey[400]),
+                      SquareTitle(
+                        imgPath: "assets/imgs/facebook.png",
                       ),
                     ],
                   ),
-                ),
 
-                //Google + Facebook buttons
-
-                const SizedBox(
-                  height: 20,
-                ),
-
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SquareTitle(imgPath: "", height: 40),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SquareTitle(
-                      imgPath: "",
-                      height: 25,
-                    ),
-                  ],
-                ),
-
-                const SizedBox(
-                  height: 20,
-                ),
-
-                //Not a member? register now
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Text(
-                //       'Not a member?',
-                //       style: TextStyle(color: Colors.grey[700]),
-                //     ),
-                //     const SizedBox(
-                //       width: 4,
-                //     ),
-                //     const Text(
-                //       'Register now',
-                //       style: TextStyle(
-                //           color: Colors.blue, fontWeight: FontWeight.bold),
-                //     ),
-                //   ],
-                // )
-              ],
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
             ),
           ),
         ));

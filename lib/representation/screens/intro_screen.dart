@@ -3,7 +3,7 @@ import 'package:flutter_carousel_intro/flutter_carousel_intro.dart';
 import 'package:flutter_carousel_intro/utils/enums.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
-import 'package:flutter_demo_02/representation/screens/main_app.dart';
+import 'package:flutter_demo_02/representation/screens/login_page.dart';
 import 'package:flutter_demo_02/representation/widgets/ButtonWidget.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -68,7 +68,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 child: ButtonWidget(
                   title: 'Get Started',
                   ontap: () {
-                    Navigator.of(context).pushNamed(MainApp.routName);
+                    Navigator.of(context).pushNamed(LoginPage.routeName);
                   },
                 ),
               ),

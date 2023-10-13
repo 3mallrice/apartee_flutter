@@ -7,6 +7,7 @@ import 'package:flutter_demo_02/representation/screens/account_routes/contract_s
 import 'package:flutter_demo_02/representation/screens/account_routes/request_screen.dart';
 import 'package:flutter_demo_02/representation/screens/home_routes/home_screen.dart';
 import 'package:flutter_demo_02/representation/screens/intro_screen.dart';
+import 'package:flutter_demo_02/representation/screens/login_page.dart';
 import 'package:flutter_demo_02/representation/screens/main_app.dart';
 import 'package:flutter_demo_02/representation/screens/account_routes/profile_screen.dart';
 import 'package:flutter_demo_02/representation/screens/package_screen.dart';
@@ -29,4 +30,5 @@ final Map<String, WidgetBuilder> routes = {
   MyContractScreen.routName: (context) => const MyContractScreen(),
   PackageScreen.routName: (context) => const PackageScreen(),
   ServiceScreen.routName: (context) => const ServiceScreen(),
+  LoginPage.routeName: (context) => LoginPage(),
 };
