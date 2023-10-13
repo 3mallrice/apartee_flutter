@@ -3,7 +3,7 @@ import 'package:flutter_demo_02/core/const/color_const.dart';
 
 class MyTextfield extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables, non_constant_identifier_names
-  final Controller;
+  final TextEditingController Controller;
   final String hintText;
   final bool obscureText;
 
@@ -18,23 +18,31 @@ class MyTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      child: TextField(
-        controller: Controller, //require?
-        obscureText:
-            obscureText, //True or False, when type hide or not... (password)
-        // maxLength: 30,
-        decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: ColorPalette.secondColor),
-            ),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: ColorPalette.primaryColor),
-            ),
-            fillColor: ColorPalette.secondbgColor,
-            filled: true,
-            hintText: hintText,
-            hintStyle: const TextStyle(color: ColorPalette.unselectedIcon)),
+      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+      child: SizedBox(
+        height: 50,
+        child: TextField(
+          controller: Controller, //require?
+          obscureText:
+              obscureText, //True or False, when type hide or not... (password)
+          // maxLength: 30,
+          decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12.0),
+                borderSide: const BorderSide(color: ColorPalette.bgColor),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12.0),
+                borderSide: const BorderSide(color: ColorPalette.bgColor),
+              ),
+              fillColor: const Color(0x50d9d9d9),
+              filled: true,
+              hintText: hintText,
+              hintStyle: const TextStyle(
+                  color: ColorPalette.bgColor,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 15)),
+        ),
       ),
     );
   }

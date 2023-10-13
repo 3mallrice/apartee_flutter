@@ -3,7 +3,7 @@ import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 import 'package:flutter_demo_02/core/helpers/image_helper.dart';
 import 'package:flutter_demo_02/core/helpers/local_storage_helper.dart';
 import 'package:flutter_demo_02/representation/screens/intro_screen.dart';
-import 'package:flutter_demo_02/representation/screens/main_app.dart';
+import 'package:flutter_demo_02/representation/screens/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(milliseconds: 2000));
 
     if (ignoreIntroScreen != null && ignoreIntroScreen) {
-      Navigator.of(context).pushNamed(MainApp.routName);
+      Navigator.of(context).pushNamed(LoginPage.routeName);
     } else {
       LocalStorageHelper.setValue('ignoreIntroScreen', true);
       Navigator.of(context).pushNamed(IntroScreen.routName);

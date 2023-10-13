@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_02/core/const/color_const.dart';
 
 class SquareTitle extends StatelessWidget {
   final String imgPath;
-  final double height;
-  const SquareTitle({super.key, required this.imgPath, required this.height});
+  const SquareTitle({super.key, required this.imgPath});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(11),
       decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.white,
-          ),
-          borderRadius: BorderRadius.circular(16)),
-      color: Colors.grey[200],
+        border: Border.all(color: Colors.white),
+        borderRadius: BorderRadius.circular(25),
+        color: ColorPalette.bgColor,
+      ),
       child: Image.asset(
         imgPath,
-        height: height,
+        height: 40,
       ),
     );
   }
