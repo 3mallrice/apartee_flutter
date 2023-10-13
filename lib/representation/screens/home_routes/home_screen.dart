@@ -2,7 +2,6 @@ import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
-import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -86,6 +85,8 @@ class _HomeState extends State<HomeScreen> {
               ),
             ),
           ),
+          //giua
+
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 55,

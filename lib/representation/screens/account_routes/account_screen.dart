@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/account_button.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/components/my_button.dart';
+import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
-import 'package:flutter_demo_02/representation/screens/profile_screen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/profile_screen.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
-
-import '../../core/const/color_const.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
@@ -21,15 +20,6 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
-      // appBar: AppBar(
-      //   backgroundColor: ColorPalette.primaryColor,
-      //   title: const Text(
-      //     'Account',
-      //     style: TextStyle(color: ColorPalette.bgColor, fontSize: 25),
-      //   ),
-      //   elevation: 3,
-      //   automaticallyImplyLeading: false,
-      // ),
       appBar: const AppBarCom(
         appBarText: 'Account',
         textColor: ColorPalette.bgColor,
@@ -70,7 +60,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Box.sizedBox(2, null, null),
+                            Box.sizedBox(8, null, null),
                             GestureDetector(
                               onTap: () {
                                 Navigator.of(context)

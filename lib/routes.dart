@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_02/representation/screens/account_screen.dart';
-import 'package:flutter_demo_02/representation/screens/apartee_screen.dart';
-import 'package:flutter_demo_02/representation/screens/home_screen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/account_screen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/apartee_screen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/profile_screen.dart';
+import 'package:flutter_demo_02/representation/screens/home_routes/home_screen.dart';
 import 'package:flutter_demo_02/representation/screens/intro_screen.dart';
 import 'package:flutter_demo_02/representation/screens/main_app.dart';
-import 'package:flutter_demo_02/representation/screens/profile_screen.dart';
+import 'package:flutter_demo_02/representation/screens/request_routes/raise_request_screen.dart';
 import 'package:flutter_demo_02/representation/screens/splash_screen.dart';
 
 final Map<String, WidgetBuilder> routes = {
@@ -15,4 +16,5 @@ final Map<String, WidgetBuilder> routes = {
   Profile.routName: (context) => const Profile(),
   AccountScreen.routName: (context) => const AccountScreen(),
   Apartee.routName: (context) => const Apartee(),
+  RaiseRequestScreen.routName: (context) => const RaiseRequestScreen(),
 };

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
-import '../../core/const/color_const.dart';
+import 'package:flutter_demo_02/core/const/color_const.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});

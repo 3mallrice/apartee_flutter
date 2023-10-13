@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
+import 'package:flutter_demo_02/components/combo_box.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
-import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
-import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({super.key});
-  static String routName = '/profile';
+class RaiseRequestScreen extends StatelessWidget {
+  static const routName = 'raiseRequest';
+  const RaiseRequestScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
       appBar: AppBarCom(
-        appBarText: 'Your profile',
+        appBarText: 'Raise request',
         leading: true,
         leftIcon: IconButton(
           icon: const Icon(
-            FontAwesomeIcons.arrowLeft,
+            Icons.arrow_back_ios_new_rounded,
             color: ColorPalette.bgColor,
           ),
           onPressed: () {
@@ -25,16 +25,9 @@ class Profile extends StatelessWidget {
           },
         ),
       ),
-      body: const Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 78),
-          Center(
-            child: CircleAvatar(
-              radius: 90,
-              backgroundImage: AssetImage(AssetHelper.imageBanner),
-            ),
-          ),
+      body: const Row(
+        children: [
+          MyComboBox(),
         ],
       ),
     );
