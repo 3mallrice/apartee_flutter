@@ -86,8 +86,6 @@ class _HomeState extends State<HomeScreen> {
               ),
             ),
           ),
-          //giua
-
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 55,
