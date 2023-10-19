@@ -1,12 +1,14 @@
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
+import 'package:flutter_demo_02/model/package.dart'; // Import đúng model Package
+import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 
-import '../../../core/helpers/asset_helpers.dart';
+import '../../../components/package.dart'; // Import đúng AssetHelper
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
-  static const routName = 'home';
+  static const routName = 'home'; // Sửa lại tên biến routName thành routeName
   @override
   State<HomeScreen> createState() => _HomeState();
 }
@@ -17,6 +19,7 @@ class _HomeState extends State<HomeScreen> {
     AssetHelper.imageBanner1,
     AssetHelper.imageBanner2
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +78,7 @@ class _HomeState extends State<HomeScreen> {
           ),
           const SliverToBoxAdapter(
             child: Padding(
-              padding: EdgeInsets.only(left: 30.0), // Căn trái
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 "Packages",
                 style: TextStyle(
@@ -83,6 +86,54 @@ class _HomeState extends State<HomeScreen> {
                   fontWeight: FontWeight.bold,
                   color: ColorPalette.textColor,
                 ),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 10,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: MyPackage(
+                onTap: () {},
+                package: Package(
+                    packageID: 1,
+                    apartmentTypeName: 'Apartment22',
+                    code: "ABC123",
+                    name:
+                        "Sample Package This is a sample package description.",
+                    description:
+                        "This is a sample package description. This is a sample package description. This is a sample package description. This is a sample package description.",
+                    price: 100.0,
+                    imageUri:
+                        'https://maxst.icons8.com/vue-static/landings/license/mobileApps1x.webp'),
+              ),
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 15,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: MyPackage(
+                onTap: () {},
+                package: Package(
+                    packageID: 1,
+                    apartmentTypeName: 'Apartment22',
+                    code: "ABC123",
+                    name:
+                        "Sample Package This is a sample package description.",
+                    description:
+                        "This is a sample package description. This is a sample package description. This is a sample package description. This is a sample package description.",
+                    price: 100.0,
+                    imageUri:
+                        'https://maxst.icons8.com/vue-static/landings/license/websites1x.webp'),
               ),
             ),
           ),
@@ -100,7 +151,7 @@ class _HomeState extends State<HomeScreen> {
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
