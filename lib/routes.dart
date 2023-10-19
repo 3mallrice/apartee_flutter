@@ -30,5 +30,5 @@ final Map<String, WidgetBuilder> routes = {
   MyContractScreen.routName: (context) => const MyContractScreen(),
   PackageScreen.routName: (context) => const PackageScreen(),
   ServiceScreen.routName: (context) => const ServiceScreen(),
-  LoginPage.routeName: (context) => LoginPage(),
+  LoginPage.routeName: (context) => const LoginPage(),
 };

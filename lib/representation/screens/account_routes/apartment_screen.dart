@@ -2,9 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 
-class MyApartmentScreen extends StatelessWidget {
+class MyApartmentScreen extends StatefulWidget {
   static const routName = 'apartment';
   const MyApartmentScreen({super.key});
+
+  @override
+  State<MyApartmentScreen> createState() => _MyApartmentScreenState();
+}
+
+class _MyApartmentScreenState extends State<MyApartmentScreen> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +30,6 @@ class MyApartmentScreen extends StatelessWidget {
           ),
           onPressed: () {
             Navigator.pop(context);
-            //Navigator.of(context).pushNamed(AccountScreen.routName);
           },
         ),
       ),
