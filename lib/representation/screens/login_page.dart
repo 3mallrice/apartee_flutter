@@ -5,13 +5,24 @@ import 'package:flutter_demo_02/components/square_title.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/representation/screens/main_app.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   static const routeName = 'login';
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   //text controller
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+
+  var articles = "";
+  @override
+  void initState() {
+    super.initState();
+  }
 
   //sign user in method
   void signUserIn() {}
