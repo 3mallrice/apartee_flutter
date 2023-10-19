@@ -124,6 +124,16 @@ class _AccountScreenState extends State<AccountScreen> {
                 Box.sizedBox(1, ColorPalette.spaceLine, null),
 
                 MyAccountButton(
+                  text: 'Assets',
+                  leftIcon: FontAwesomeIcons.fileContract,
+                  rightIcon: Icons.arrow_forward,
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(MyContractScreen.routName);
+                  },
+                ),
+                Box.sizedBox(1, ColorPalette.spaceLine, null),
+
+                MyAccountButton(
                   text: 'Contracts',
                   leftIcon: FontAwesomeIcons.fileContract,
                   rightIcon: Icons.arrow_forward,
