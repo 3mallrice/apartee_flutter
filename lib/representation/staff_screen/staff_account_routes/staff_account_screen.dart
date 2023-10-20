@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/request_screen.dart';
+import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
+import '../../../components/account_button.dart';
 import '../../../components/app_bar.dart';
+import '../../../components/my_button.dart';
 import '../../../core/const/color_const.dart';
 import '../../../core/helpers/asset_helpers.dart';
+import '../../screens/account_routes/apartee_screen.dart';
 
 class StaffAccount extends StatefulWidget {
   const StaffAccount({super.key});
@@ -12,6 +17,7 @@ class StaffAccount extends StatefulWidget {
 }
 
 class _StaffAccountState extends State<StaffAccount> {
+  final String requestHistory = MyRequestScreen.routName;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,71 +89,11 @@ class _StaffAccountState extends State<StaffAccount> {
                 Box.sizedBox(10, ColorPalette.secondColor, null),
 
                 MyAccountButton(
-                  text: 'Bills',
-                  leftIcon: FontAwesomeIcons.fileInvoiceDollar,
-                  rightIcon: Icons.arrow_forward,
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(MyBillScreen.routName);
-                  },
-                ),
-                Box.sizedBox(1, ColorPalette.spaceLine, null),
-
-                MyAccountButton(
                   text: 'Requests',
                   leftIcon: FontAwesomeIcons.notesMedical,
                   rightIcon: Icons.arrow_forward,
                   onPressed: () {
-                    Navigator.of(context).pushNamed(MyRequestScreen.routName);
-                  },
-                ),
-                Box.sizedBox(1, ColorPalette.spaceLine, null),
-
-                MyAccountButton(
-                  text: 'Apartments',
-                  leftIcon: FontAwesomeIcons.solidBuilding,
-                  rightIcon: Icons.arrow_forward,
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(MyApartmentScreen.routName);
-                  },
-                ),
-                Box.sizedBox(1, ColorPalette.spaceLine, null),
-
-                MyAccountButton(
-                  text: 'Assets',
-                  leftIcon: FontAwesomeIcons.fileContract,
-                  rightIcon: Icons.arrow_forward,
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(MyContractScreen.routName);
-                  },
-                ),
-                Box.sizedBox(1, ColorPalette.spaceLine, null),
-
-                MyAccountButton(
-                  text: 'Contracts',
-                  leftIcon: FontAwesomeIcons.fileContract,
-                  rightIcon: Icons.arrow_forward,
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(MyContractScreen.routName);
-                  },
-                ),
-                Box.sizedBox(1, ColorPalette.spaceLine, null),
-
-                MyAccountButton(
-                  text: 'Packages',
-                  leftIcon: FontAwesomeIcons.cubes,
-                  rightIcon: Icons.arrow_forward,
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(PackageScreen.routName);
-                  },
-                ),
-                Box.sizedBox(1, ColorPalette.spaceLine, null),
-
-                MyAccountButton(
-                  text: 'Services',
-                  leftIcon: FontAwesomeIcons.ethernet,
-                  rightIcon: Icons.arrow_forward,
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(ServiceScreen.routName);
+                    Navigator.of(context).pushNamed(requestHistory);
                   },
                 ),
                 Box.sizedBox(1, ColorPalette.spaceLine, null),

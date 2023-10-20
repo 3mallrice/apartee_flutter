@@ -6,6 +6,7 @@ import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 import 'package:flutter_demo_02/representation/screens/account_routes/apartee_screen.dart';
 import 'package:flutter_demo_02/representation/screens/account_routes/apartment_screen.dart';
+import 'package:flutter_demo_02/representation/screens/account_routes/asset_screen.dart';
 import 'package:flutter_demo_02/representation/screens/account_routes/bill_sceen.dart';
 import 'package:flutter_demo_02/representation/screens/account_routes/contract_screen.dart';
 import 'package:flutter_demo_02/representation/screens/account_routes/profile_screen.dart';
@@ -128,7 +129,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   leftIcon: FontAwesomeIcons.fileContract,
                   rightIcon: Icons.arrow_forward,
                   onPressed: () {
-                    Navigator.of(context).pushNamed(MyContractScreen.routName);
+                    Navigator.of(context).pushNamed(AssetScreen.routName);
                   },
                 ),
                 Box.sizedBox(1, ColorPalette.spaceLine, null),

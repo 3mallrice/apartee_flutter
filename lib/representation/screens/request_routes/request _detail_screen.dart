@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_02/components/app_bar.dart';
+import '../../../components/app_bar.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 
-class MyApartmentScreen extends StatefulWidget {
-  static const routName = 'apartment';
-  const MyApartmentScreen({super.key});
+class RequestDetail extends StatefulWidget {
+  const RequestDetail({super.key});
+  static const routName = 'request_detail';
 
   @override
-  State<MyApartmentScreen> createState() => _MyApartmentScreenState();
+  State<RequestDetail> createState() => _RequestDetailState();
 }
 
-class _MyApartmentScreenState extends State<MyApartmentScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _RequestDetailState extends State<RequestDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
       appBar: AppBarCom(
-        appBarText: 'My apartments',
+        appBarText: 'Request Detail',
         leading: true,
         leftIcon: IconButton(
           icon: const Icon(

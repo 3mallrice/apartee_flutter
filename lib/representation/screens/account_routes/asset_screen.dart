@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 
-class MyApartmentScreen extends StatefulWidget {
-  static const routName = 'apartment';
-  const MyApartmentScreen({super.key});
+class AssetScreen extends StatefulWidget {
+  const AssetScreen({super.key});
+  static const routName = 'asset';
 
   @override
-  State<MyApartmentScreen> createState() => _MyApartmentScreenState();
+  State<AssetScreen> createState() => _AssetScreenState();
 }
 
-class _MyApartmentScreenState extends State<MyApartmentScreen> {
+class _AssetScreenState extends State<AssetScreen> {
   @override
   void initState() {
     super.initState();
@@ -21,7 +21,7 @@ class _MyApartmentScreenState extends State<MyApartmentScreen> {
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
       appBar: AppBarCom(
-        appBarText: 'My apartments',
+        appBarText: 'My assets',
         leading: true,
         leftIcon: IconButton(
           icon: const Icon(

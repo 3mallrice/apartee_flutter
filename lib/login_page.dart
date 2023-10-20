@@ -18,7 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  var articles = "";
   @override
   void initState() {
     super.initState();
