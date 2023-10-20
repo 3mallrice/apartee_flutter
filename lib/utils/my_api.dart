@@ -16,7 +16,6 @@ class CallApi {
         return 'failed';
       }
     } catch (e) {
-      print(e);
       return 'failed';
     }
   }

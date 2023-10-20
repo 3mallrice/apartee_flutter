@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_02/core/const/color_const.dart';
+import 'package:flutter_demo_02/representation/staff_screen/staff_account_routes/staff_account_screen.dart';
+import 'package:flutter_demo_02/representation/staff_screen/staff_home_routes/staff_home_screen.dart';
+import 'package:flutter_demo_02/representation/staff_screen/staff_noti_routes/staff_noti.dart';
+import '../../core/const/color_const.dart';
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
-import 'package:flutter_demo_02/representation/screens/account_routes/account_screen.dart';
-import 'package:flutter_demo_02/representation/screens/home_routes/home_screen.dart';
-import 'package:flutter_demo_02/representation/screens/message_routes/message_screen.dart';
-import 'package:flutter_demo_02/representation/screens/request_routes/request_screen.dart';
 // ignore: implementation_imports
 import 'package:font_awesome_icon_class/src/font_awesome_icon_class.dart';
 
-class MainApp extends StatefulWidget {
-  const MainApp({super.key});
-  static String routName = '/main_app';
+class StaffBar extends StatefulWidget {
+  const StaffBar({super.key});
+  static String routName = 'staffbar';
   @override
-  State<MainApp> createState() => _MainAppState();
+  State<StaffBar> createState() => _StaffBarState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _StaffBarState extends State<StaffBar> {
   dynamic selected;
   var heart = false;
   PageController controller = PageController();
@@ -41,10 +40,9 @@ class _MainAppState extends State<MainApp> {
         body: IndexedStack(
           index: _selectedTab.index,
           children: const [
-            HomeScreen(),
-            RequestScreen(),
-            MessageScreen(),
-            AccountScreen(),
+            StaffHome(),
+            StaffNoti(),
+            StaffAccount(),
           ],
         ),
         extendBody: true,
@@ -68,13 +66,7 @@ class _MainAppState extends State<MainApp> {
                 selectedColor: ColorPalette.primaryColor,
               ),
 
-              /// Request
-              DotNavigationBarItem(
-                icon: const Icon(FontAwesomeIcons.notesMedical),
-                selectedColor: ColorPalette.primaryColor,
-              ),
-
-              /// Message
+              /// Noti
               DotNavigationBarItem(
                 icon: const Icon(FontAwesomeIcons.solidBell),
                 selectedColor: ColorPalette.primaryColor,
@@ -92,4 +84,4 @@ class _MainAppState extends State<MainApp> {
 }
 
 // ignore: constant_identifier_names
-enum _SelectedTab { Home, Request, Message, Account }
+enum _SelectedTab { Home, Message, Account }

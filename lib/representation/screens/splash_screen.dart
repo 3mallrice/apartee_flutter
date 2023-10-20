@@ -3,7 +3,7 @@ import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 import 'package:flutter_demo_02/core/helpers/image_helper.dart';
 import 'package:flutter_demo_02/core/helpers/local_storage_helper.dart';
 import 'package:flutter_demo_02/representation/screens/intro_screen.dart';
-import 'package:flutter_demo_02/representation/screens/login_page.dart';
+import 'package:flutter_demo_02/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
