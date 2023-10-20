@@ -26,7 +26,6 @@ class Apartee extends StatelessWidget {
           ),
           onPressed: () {
             Navigator.pop(context);
-            //Navigator.of(context).pushNamed(AccountScreen.routName);
           },
         ),
       ),

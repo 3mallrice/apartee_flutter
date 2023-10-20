@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/representation/screens/account_routes/request_screen.dart';
+import 'package:flutter_demo_02/representation/screens/request_routes/request%20_detail_screen.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
 class RequestScreen extends StatefulWidget {
@@ -40,7 +41,9 @@ class _RequestScreenState extends State<RequestScreen> {
               title: Text(request.title),
               subtitle: Text(request.date),
               trailing: const Icon(Icons.arrow_forward),
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(RequestDetail.routName);
+              },
             ),
           );
         },
