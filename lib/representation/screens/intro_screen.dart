@@ -3,7 +3,7 @@ import 'package:flutter_carousel_intro/flutter_carousel_intro.dart';
 import 'package:flutter_carousel_intro/utils/enums.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
-import 'package:flutter_demo_02/representation/screens/login_page.dart';
+import 'package:flutter_demo_02/login_page.dart';
 import 'package:flutter_demo_02/representation/widgets/ButtonWidget.dart';
 
 class IntroScreen extends StatefulWidget {

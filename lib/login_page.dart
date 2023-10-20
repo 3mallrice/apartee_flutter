@@ -3,7 +3,7 @@ import 'package:flutter_demo_02/components/my_button.dart';
 import 'package:flutter_demo_02/components/my_textfield.dart';
 import 'package:flutter_demo_02/components/square_title.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
-import 'package:flutter_demo_02/representation/screens/main_app.dart';
+import 'package:flutter_demo_02/representation/staff_screen/staff_navbar.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = 'login';
@@ -24,7 +24,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   //sign user in method
-  void signUserIn() {}
+  void signUserIn() {
+    // Navigator.of(context).pushNamed(MainApp.routName);
+    Navigator.of(context).pushNamed(StaffBar.routName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,10 +112,10 @@ class _LoginPageState extends State<LoginPage> {
 
                   //sign-in button
                   MyButton(
-                    //onTap: signUserIn,
-                    onTap: () {
-                      Navigator.of(context).pushNamed(MainApp.routName);
-                    },
+                    onTap: signUserIn,
+                    // onTap: () {
+                    //   Navigator.of(context).pushNamed(MainApp.routName);
+                    // },
                     text: 'Login',
                     color: ColorPalette.bgColor,
                     textColor: ColorPalette.primaryColor,
