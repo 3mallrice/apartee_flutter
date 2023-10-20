@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
+import 'package:flutter_demo_02/utils/api_services.dart';
 
 class AssetScreen extends StatefulWidget {
   const AssetScreen({super.key});
@@ -11,9 +12,27 @@ class AssetScreen extends StatefulWidget {
 }
 
 class _AssetScreenState extends State<AssetScreen> {
+  final CallApi api = CallApi(); // Tạo một đối tượng CallApi
+
+  List<dynamic> assets = []; // Danh sách tài sản
+
   @override
   void initState() {
     super.initState();
+    // Gọi hàm để tải danh sách tài sản khi màn hình được khởi tạo
+    fetchAssetData();
+  }
+
+  // Hàm để tải danh sách tài sản từ API
+  void fetchAssetData() async {
+    final response = await api.getArticleData('asset');
+    if (response != 'failed') {
+      setState(() {
+        assets = response;
+      });
+    } else {
+      // Xử lý lỗi ở đây nếu cần thiết
+    }
   }
 
   @override
@@ -32,6 +51,17 @@ class _AssetScreenState extends State<AssetScreen> {
             Navigator.pop(context);
           },
         ),
+      ),
+      body: ListView.builder(
+        itemCount: assets.length,
+        itemBuilder: (context, index) {
+          final asset = assets[index];
+          return ListTile(
+            title: Text(asset['assetName']),
+            subtitle: Text(asset['assetDescription']),
+            // Thêm các thông tin khác của tài sản ở đây.
+          );
+        },
       ),
     );
   }
