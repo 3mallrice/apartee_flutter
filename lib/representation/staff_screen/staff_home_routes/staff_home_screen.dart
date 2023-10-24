@@ -93,7 +93,7 @@ class _StaffHomeState extends State<StaffHome> {
               height: 10,
             ),
           ),
-          SliverToBoxAdapter(),
+          const SliverToBoxAdapter(),
           const SliverToBoxAdapter(
             child: SizedBox(
               height: 55,

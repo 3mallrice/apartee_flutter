@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_02/apis/api_services.dart';
 import 'package:flutter_demo_02/components/my_button.dart';
 import 'package:flutter_demo_02/components/my_textfield.dart';
 import 'package:flutter_demo_02/components/square_title.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
-import 'package:flutter_demo_02/representation/staff_screen/staff_navbar.dart';
+import 'package:flutter_demo_02/representation/screens/main_app.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = 'login';
@@ -15,7 +16,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   //text controller
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
@@ -23,10 +24,25 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
-  //sign user in method
-  void signUserIn() {
-    // Navigator.of(context).pushNamed(MainApp.routName);
-    Navigator.of(context).pushNamed(StaffBar.routName);
+  onPressedLogin() async {
+    // Lấy email và password từ text field
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    // Gọi API
+    String result = await CallApi().login(email, password);
+
+    // Xử lý kết quả
+    if (result == 'success') {
+      // Chuyển sang home
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushNamed(MainApp.routName);
+    } else {
+      // Hiển thị lỗi
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Đăng nhập thất bại')));
+    }
   }
 
   @override
@@ -72,8 +88,8 @@ class _LoginPageState extends State<LoginPage> {
 
                   //username textfield
                   MyTextfield(
-                    Controller: usernameController,
-                    hintText: 'Username',
+                    Controller: emailController,
+                    hintText: 'Email',
                     obscureText: false,
                   ),
 
@@ -112,10 +128,7 @@ class _LoginPageState extends State<LoginPage> {
 
                   //sign-in button
                   MyButton(
-                    onTap: signUserIn,
-                    // onTap: () {
-                    //   Navigator.of(context).pushNamed(MainApp.routName);
-                    // },
+                    onTap: onPressedLogin,
                     text: 'Login',
                     color: ColorPalette.bgColor,
                     textColor: ColorPalette.primaryColor,
