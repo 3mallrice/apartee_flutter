@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
-import 'package:flutter_demo_02/utils/api_services.dart';
+import 'package:flutter_demo_02/apis/api_services.dart';
 
 class AssetScreen extends StatefulWidget {
   const AssetScreen({super.key});
@@ -31,6 +31,7 @@ class _AssetScreenState extends State<AssetScreen> {
         assets = response;
       });
     } else {
+      //print('A network error occurred');
       // Xử lý lỗi ở đây nếu cần thiết
     }
   }
@@ -56,9 +57,18 @@ class _AssetScreenState extends State<AssetScreen> {
         itemCount: assets.length,
         itemBuilder: (context, index) {
           final asset = assets[index];
+          print(
+              'Asset: ${asset['Name']}, Description: ${asset['Description']}, Quantity: ${asset['Quantity']}');
+          print(assets);
           return ListTile(
-            title: Text(asset['assetName']),
-            subtitle: Text(asset['assetDescription']),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(asset['Name']),
+                Text(asset['Description']),
+                Text('Quantity: ${asset['Quantity'].toString()}'),
+              ],
+            ),
             // Thêm các thông tin khác của tài sản ở đây.
           );
         },
