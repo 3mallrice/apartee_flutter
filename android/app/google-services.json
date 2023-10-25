@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "819111597239",
+    "firebase_url": "https://apartee-620a4-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "apartee-620a4",
+    "storage_bucket": "apartee-620a4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819111597239:android:b41de9dc64c4c89885e932",
+        "android_client_info": {
+          "package_name": "com.example.flutter_demo_02"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819111597239-kfhfi99srq35jt2s56rf7de2dgmrh7jn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKYY0qYFqGdzU9eCEDjpG_DNO5SiwnG7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819111597239-kfhfi99srq35jt2s56rf7de2dgmrh7jn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

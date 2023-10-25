@@ -1,14 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/local_storage_helper.dart';
+import 'package:flutter_demo_02/firebase_options.dart';
 import 'package:flutter_demo_02/representation/screens/splash_screen.dart';
 import 'package:flutter_demo_02/routes.dart';
 import 'package:hive_flutter/adapters.dart';
 
 void main() async {
   // runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await LocalStorageHelper.initLocalStorageHelper();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 

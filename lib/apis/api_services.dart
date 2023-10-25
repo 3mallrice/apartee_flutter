@@ -1,11 +1,12 @@
 import 'dart:convert';
-
-import 'package:flutter_demo_02/apis/api_doing.dart';
 import 'package:http/http.dart' as http;
 
+import '../model/login.dart';
+
 class CallApi {
-  final String _url = 'http://10.0.2.2:5159/api/';
-  final String _imgUrl = 'http://10.0.2.2:5159/uploads/';
+  final String _url = 'https://apartment-mangement.azurewebsites.net/api';
+  final String _imgUrl =
+      'https://console.firebase.google.com/u/0/project/apartee-620a4/overview';
 
   getImage() {
     return _imgUrl;
@@ -34,15 +35,21 @@ class CallApi {
   Future<String> login(String email, String password) async {
     LoginRequest request = LoginRequest(email: email, password: password);
 
-    var url = Uri.parse(ApiEndpoint.LOGIN);
+    var url = Uri.parse('$_url/authentication/login');
     var body = jsonEncode(request.toJson());
 
     http.Response response = await http
         .post(url, body: body, headers: {'Content-Type': 'application/json'});
 
+    // final responseJson = jsonDecode(response.body);
+    // final account = responseJson["data"];
+    // final token = responseJson["token"];
+
     if (response.statusCode == 200) {
       // Login thành công
-      return 'success';
+      // Map<String, dynamic> payload = Jwt.decode(token);
+      // String role = payload['role'];
+      return 'role';
     } else {
       // Login thất bại
       return 'error';
