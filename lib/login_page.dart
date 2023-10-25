@@ -5,6 +5,7 @@ import 'package:flutter_demo_02/components/my_textfield.dart';
 import 'package:flutter_demo_02/components/square_title.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/representation/screens/main_app.dart';
+import 'package:flutter_demo_02/representation/staff_screen/staff_home_routes/staff_home_screen.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = 'login';
@@ -24,6 +25,20 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
+  void redirectFunction(String routeName) {
+    Navigator.of(context).pushNamed(routeName);
+  }
+
+  void showInvalidRoleError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Invalid account permistion.')));
+  }
+
+  void showLoginError() {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Invalid Account.')));
+  }
+
   onPressedLogin() async {
     // Lấy email và password từ text field
     String email = emailController.text;
@@ -33,15 +48,17 @@ class _LoginPageState extends State<LoginPage> {
     String result = await CallApi().login(email, password);
 
     // Xử lý kết quả
-    if (result == 'success') {
-      // Chuyển sang home
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pushNamed(MainApp.routName);
+    if (result != 'error') {
+      String role = result;
+      if (role == 'OWNER' || role == 'TENANT') {
+        redirectFunction(MainApp.routName);
+      } else if (role == 'STAFF') {
+        redirectFunction(StaffHome.routName);
+      } else {
+        showInvalidRoleError;
+      }
     } else {
-      // Hiển thị lỗi
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Đăng nhập thất bại')));
+      showLoginError;
     }
   }
 
