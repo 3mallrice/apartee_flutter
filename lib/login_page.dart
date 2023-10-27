@@ -6,6 +6,7 @@ import 'package:flutter_demo_02/components/square_title.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/representation/screens/main_app.dart';
 import 'package:flutter_demo_02/representation/staff_screen/staff_home_routes/staff_home_screen.dart';
+import 'package:logger/logger.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = 'login';
@@ -19,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   //text controller
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  var logger = Logger();
 
   @override
   void initState() {
@@ -44,21 +46,24 @@ class _LoginPageState extends State<LoginPage> {
     String email = emailController.text;
     String password = passwordController.text;
 
-    // Gọi API
-    String result = await CallApi().login(email, password);
+    try {
+      // Gọi API và nhận kết quả dưới dạng LoginResponse
+      String role = await CallApi().login(email, password);
 
-    // Xử lý kết quả
-    if (result != 'error') {
-      String role = result;
       if (role == 'OWNER' || role == 'TENANT') {
+        logger.i("Login as $role");
         redirectFunction(MainApp.routName);
       } else if (role == 'STAFF') {
+        logger.i("Login as $role");
         redirectFunction(StaffHome.routName);
       } else {
-        showInvalidRoleError;
+        logger.i("Invalid permistion");
+        showInvalidRoleError();
       }
-    } else {
-      showLoginError;
+    } catch (e) {
+      // Xử lý ngoại lệ (exception) khi đăng nhập thất bại
+      logger.e('Login error: $e');
+      showLoginError();
     }
   }
 

@@ -1,12 +1,14 @@
 import 'dart:convert';
+import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
+import '../core/helpers/local_storage_helper.dart';
+import '../core/helpers/login_response_adapter.dart';
 import '../model/login.dart';
 
 class CallApi {
   final String _url = 'https://apartment-mangement.azurewebsites.net/api';
-  final String _imgUrl =
-      'https://console.firebase.google.com/u/0/project/apartee-620a4/overview';
+  final String _imgUrl = 'gs://apartee-620a4.appspot.com';
 
   getImage() {
     return _imgUrl;
@@ -41,18 +43,20 @@ class CallApi {
     http.Response response = await http
         .post(url, body: body, headers: {'Content-Type': 'application/json'});
 
-    // final responseJson = jsonDecode(response.body);
-    // final account = responseJson["data"];
-    // final token = responseJson["token"];
+    final responseBody = jsonDecode(response.body);
+    final data = responseBody["data"];
+    String token = responseBody["token"];
+    LoginResponse account = LoginResponse.fromJson(data);
 
     if (response.statusCode == 200) {
       // Login thành công
-      // Map<String, dynamic> payload = Jwt.decode(token);
-      // String role = payload['role'];
-      return 'role';
+      // Hive.registerAdapter(LoginResponseAdapter()); // Mở Hive box
+      // LocalStorageHelper.setValue("account", account);
+      // LocalStorageHelper.setValue("token", token);
+      return account.role;
     } else {
       // Login thất bại
-      return 'error';
+      throw Exception(response.statusCode);
     }
   }
 }
