@@ -21,6 +21,10 @@ class _SplashScreenState extends State<SplashScreen> {
     redirectIntro();
   }
 
+  void redirectTo(String redirectTo) {
+    Navigator.of(context).pushNamed(redirectTo);
+  }
+
   void redirectIntro() async {
     //await LocalStorageHelper.initLocalStorageHelper(); // Mở Hive box
     final ignoreIntroScreen =
@@ -28,10 +32,10 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(milliseconds: 2000));
 
     if (ignoreIntroScreen != null && ignoreIntroScreen) {
-      Navigator.of(context).pushNamed(LoginPage.routeName);
+      redirectTo(LoginPage.routeName);
     } else {
       LocalStorageHelper.setValue('ignoreIntroScreen', true);
-      Navigator.of(context).pushNamed(IntroScreen.routName);
+      redirectTo(IntroScreen.routName);
     }
   }
 

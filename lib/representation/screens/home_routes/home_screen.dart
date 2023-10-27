@@ -1,10 +1,12 @@
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
+import 'package:flutter_demo_02/model/login.dart';
 import 'package:flutter_demo_02/model/package.dart'; // Import đúng model Package
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 
-import '../../../components/package.dart'; // Import đúng AssetHelper
+import '../../../components/package.dart';
+import '../../../core/helpers/local_storage_helper.dart'; // Import đúng AssetHelper
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,6 +21,19 @@ class _HomeState extends State<HomeScreen> {
     AssetHelper.imageBanner1,
     AssetHelper.imageBanner2
   ];
+
+  String? name;
+  LoginResponse? account;
+
+  @override
+  void initState() {
+    super.initState();
+    account = LocalStorageHelper.getValue("account");
+
+    if (account != null) {
+      name = account?.name;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +61,9 @@ class _HomeState extends State<HomeScreen> {
               ),
               titlePadding: const EdgeInsets.only(bottom: 80),
               centerTitle: true,
-              title: const Text(
-                "Hello, How are you today?",
-                style: TextStyle(
+              title: Text(
+                "Hello${name != null ? " $name" : ""},\nHow are you today?",
+                style: const TextStyle(
                   fontSize: 15,
                   color: ColorPalette.bgColor,
                 ),
