@@ -1,14 +1,13 @@
 import 'dart:convert';
-import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 
 import '../core/helpers/local_storage_helper.dart';
-import '../core/helpers/login_response_adapter.dart';
 import '../model/login.dart';
 
 class CallApi {
   final String _url = 'https://apartment-mangement.azurewebsites.net/api';
   final String _imgUrl = 'gs://apartee-620a4.appspot.com';
+  String token = "";
 
   getImage() {
     return _imgUrl;
@@ -45,18 +44,17 @@ class CallApi {
 
     final responseBody = jsonDecode(response.body);
     final data = responseBody["data"];
-    String token = responseBody["token"];
+    final message = responseBody["message"];
+    token = responseBody["token"];
     LoginResponse account = LoginResponse.fromJson(data);
 
     if (response.statusCode == 200) {
       // Login thành công
-      // Hive.registerAdapter(LoginResponseAdapter()); // Mở Hive box
-      // LocalStorageHelper.setValue("account", account);
-      // LocalStorageHelper.setValue("token", token);
+      LoginAccount.saveLoginAccount(account);
       return account.role;
     } else {
       // Login thất bại
-      throw Exception(response.statusCode);
+      throw Exception(response.statusCode + message);
     }
   }
 }
