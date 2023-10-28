@@ -3,8 +3,13 @@ import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 
 class RaiseRequestScreen extends StatelessWidget {
-  static const routName = 'raiseRequest';
+  static const routName = 'raise_request';
   const RaiseRequestScreen({super.key});
+
+  Future<List<String>> getApartments() async {
+    // Call API
+    return ['Apartment A', 'Apartment B', 'Apartment C'];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +25,35 @@ class RaiseRequestScreen extends StatelessWidget {
           ),
           onPressed: () {
             Navigator.pop(context);
-            //Navigator.of(context).pushNamed(AccountScreen.routName);
           },
         ),
       ),
-      body: const Row(
-        children: [],
+      body: Column(
+        children: [
+          // Lấy danh sách apartment từ API
+          FutureBuilder(
+            future: getApartments(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return DropdownButton(
+                  items: snapshot.data?.map((apartment) {
+                    return DropdownMenuItem(
+                      value: apartment,
+                      child: Text(apartment),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    // Lưu giá trị được chọn
+                  },
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
+          ),
+
+          // Phần view khác của screen
+        ],
       ),
     );
   }

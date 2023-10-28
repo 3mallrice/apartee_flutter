@@ -4,6 +4,7 @@ import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/model/login.dart';
 import 'package:flutter_demo_02/model/package.dart'; // Import đúng model Package
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
+import 'package:flutter_demo_02/representation/screens/request_routes/raise_request_screen.dart';
 
 import '../../../components/package.dart';
 import '../../../core/helpers/local_storage_helper.dart'; // Import đúng AssetHelper
@@ -113,7 +114,9 @@ class _HomeState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: MyPackage(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed(RaiseRequestScreen.routName);
+                },
                 package: Package(
                     packageID: 1,
                     apartmentTypeName: 'Apartment22',
@@ -137,7 +140,9 @@ class _HomeState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: MyPackage(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushNamed(RaiseRequestScreen.routName);
+                },
                 package: Package(
                     packageID: 1,
                     apartmentTypeName: 'Apartment22',
