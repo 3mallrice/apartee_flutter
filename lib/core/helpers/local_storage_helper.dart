@@ -45,16 +45,33 @@ class LoginAccount {
   }
 
   static saveLoginAccount(LoginResponse loginResponse) async {
-    LocalStorageHelper.setValue("accountId", loginResponse.id);
-    LocalStorageHelper.setValue('accountName', loginResponse.name);
-    LocalStorageHelper.setValue('accountRole', loginResponse.role);
-    LocalStorageHelper.setValue('accountCode', loginResponse.code);
-    LocalStorageHelper.setValue('accountEmail', loginResponse.email);
-    LocalStorageHelper.setValue('accountAddress', loginResponse.address);
-    LocalStorageHelper.setValue('accountPhone', loginResponse.phone);
-    LocalStorageHelper.setValue('accountAvatarLink', loginResponse.avatarLink);
-    LocalStorageHelper.setValue('accountLastLogin', loginResponse.lastLogin);
-    LocalStorageHelper.setValue('accountLastUpdate', loginResponse.lastUpdate);
-    LocalStorageHelper.setValue('accountStatus', loginResponse.status);
+    await LocalStorageHelper.setValue("accountId", loginResponse.id);
+    await LocalStorageHelper.setValue('accountName', loginResponse.name);
+    await LocalStorageHelper.setValue('accountRole', loginResponse.role);
+    await LocalStorageHelper.setValue('accountCode', loginResponse.code);
+    await LocalStorageHelper.setValue('accountEmail', loginResponse.email);
+    await LocalStorageHelper.setValue('accountAddress', loginResponse.address);
+    await LocalStorageHelper.setValue('accountPhone', loginResponse.phone);
+    await LocalStorageHelper.setValue(
+        'accountAvatarLink', loginResponse.avatarLink);
+    await LocalStorageHelper.setValue(
+        'accountLastLogin', loginResponse.lastLogin);
+    await LocalStorageHelper.setValue(
+        'accountLastUpdate', loginResponse.lastUpdate);
+    await LocalStorageHelper.setValue('accountStatus', loginResponse.status);
+  }
+
+  static clearLoginAccount() async {
+    await LocalStorageHelper.setValue("accountId", null);
+    await LocalStorageHelper.setValue('accountName', null);
+    await LocalStorageHelper.setValue('accountRole', null);
+    await LocalStorageHelper.setValue('accountCode', null);
+    await LocalStorageHelper.setValue('accountEmail', null);
+    await LocalStorageHelper.setValue('accountAddress', null);
+    await LocalStorageHelper.setValue('accountPhone', null);
+    await LocalStorageHelper.setValue('accountAvatarLink', null);
+    await LocalStorageHelper.setValue('accountLastLogin', null);
+    await LocalStorageHelper.setValue('accountLastUpdate', null);
+    await LocalStorageHelper.setValue('accountStatus', null);
   }
 }

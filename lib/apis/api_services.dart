@@ -51,10 +51,34 @@ class CallApi {
     if (response.statusCode == 200) {
       // Login thành công
       LoginAccount.saveLoginAccount(account);
+      LocalStorageHelper.setValue("account", data);
       return account.role;
     } else {
       // Login thất bại
       throw Exception(response.statusCode + message);
+    }
+  }
+
+  //LOGOUT
+  Future<void> logout() async {
+    try {
+      var url = Uri.parse('$_url/authentication/logout');
+      final response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json'
+        },
+      );
+
+      if (response.statusCode == 200) {
+        token = "";
+        LoginAccount.clearLoginAccount();
+      } else {
+        throw 'Logout failed with status: ${response.statusCode}';
+      }
+    } catch (error) {
+      throw Exception("Something wrong try again!");
     }
   }
 }
