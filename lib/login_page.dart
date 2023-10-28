@@ -5,7 +5,7 @@ import 'package:flutter_demo_02/components/my_textfield.dart';
 import 'package:flutter_demo_02/components/square_title.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/representation/screens/main_app.dart';
-import 'package:flutter_demo_02/representation/staff_screen/staff_home_routes/staff_home_screen.dart';
+import 'package:flutter_demo_02/representation/staff_screen/staff_navbar.dart';
 import 'package:logger/logger.dart';
 
 class LoginPage extends StatefulWidget {
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void showLoginError() {
     ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('Invalid Account.')));
+        .showSnackBar(const SnackBar(content: Text("Invalid Account")));
   }
 
   onPressedLogin() async {
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
         redirectFunction(MainApp.routName);
       } else if (role == 'STAFF') {
         logger.i("Login as $role");
-        redirectFunction(StaffHome.routName);
+        redirectFunction(StaffBar.routName);
       } else {
         logger.i("Invalid permistion");
         showInvalidRoleError();

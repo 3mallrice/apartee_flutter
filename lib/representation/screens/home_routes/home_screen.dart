@@ -1,7 +1,6 @@
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
-import 'package:flutter_demo_02/model/login.dart';
 import 'package:flutter_demo_02/model/package.dart'; // Import đúng model Package
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 
@@ -23,16 +22,11 @@ class _HomeState extends State<HomeScreen> {
   ];
 
   String? name;
-  LoginResponse? account;
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
-    account = LocalStorageHelper.getValue("account");
-
-    if (account != null) {
-      name = account?.name;
-    }
+    name = await LocalStorageHelper.getValue("accountName") as String;
   }
 
   @override
