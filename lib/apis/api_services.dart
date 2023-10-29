@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../components/get_list_response.dart';
 import '../core/helpers/local_storage_helper.dart';
 import '../model/login.dart';
+import '../model/package.dart';
 
 class CallApi {
   final String _url = 'https://apartment-mangement.azurewebsites.net/api';
@@ -11,25 +13,6 @@ class CallApi {
 
   getImage() {
     return _imgUrl;
-  }
-
-  //GET
-  Future<dynamic> getArticleData(String apiUrl) async {
-    http.Response response = await http.get(Uri.parse(_url + apiUrl));
-    try {
-      if (response.statusCode == 200) {
-        // Phân tích dữ liệu JSON và trả về kết quả
-        return json.decode(response.body);
-      } else {
-        // Trả về 'failed' nếu có lỗi trong yêu cầu API
-        return 'failed';
-      }
-    } catch (e) {
-      // ignore: avoid_print
-      print(e);
-      // Trả về 'failed' nếu có lỗi trong quá trình xử lý yêu cầu
-      return 'failed';
-    }
   }
 
   //LOGIN
@@ -79,6 +62,30 @@ class CallApi {
       }
     } catch (error) {
       throw Exception("Something wrong try again!");
+    }
+  }
+
+  //GET: ../package
+  //get all packages
+  Future<GetListResponse> getPackages(int page) async {
+    var url = Uri.parse('$_url/package');
+    url = url.replace(queryParameters: {'page': '$page'});
+
+    http.Response response = await http.get(
+      url,
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      final List<dynamic> package = jsonResponse["data"];
+      final List<Package> packageList =
+          package.map((e) => Package.fromJson(e)).toList();
+      final int totalPage = jsonResponse["totalPage"];
+      GetListResponse getResponse = GetListResponse(packageList, totalPage);
+      return getResponse;
+    } else {
+      throw Exception("Something wrong!");
     }
   }
 }

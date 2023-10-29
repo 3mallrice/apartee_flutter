@@ -20,21 +20,21 @@ class _AssetScreenState extends State<AssetScreen> {
   void initState() {
     super.initState();
     // Gọi hàm để tải danh sách tài sản khi màn hình được khởi tạo
-    fetchAssetData();
+    // fetchAssetData();
   }
 
   // Hàm để tải danh sách tài sản từ API
-  void fetchAssetData() async {
-    final response = await api.getArticleData('asset');
-    if (response != 'failed') {
-      setState(() {
-        assets = response;
-      });
-    } else {
-      //print('A network error occurred');
-      // Xử lý lỗi ở đây nếu cần thiết
-    }
-  }
+  // void fetchAssetData() async {
+  //   final response = await api.getArticleData('asset');
+  //   if (response != 'failed') {
+  //     setState(() {
+  //       assets = response;
+  //     });
+  //   } else {
+  //     //print('A network error occurred');
+  //     // Xử lý lỗi ở đây nếu cần thiết
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
