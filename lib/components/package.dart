@@ -9,7 +9,7 @@ class MyPackage extends StatelessWidget {
 
   const MyPackage({
     super.key,
-    required this.onTap,
+    this.onTap,
     required this.package,
   });
 

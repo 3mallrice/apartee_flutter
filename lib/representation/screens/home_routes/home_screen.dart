@@ -5,12 +5,12 @@ import 'package:flutter_demo_02/model/login.dart';
 import 'package:flutter_demo_02/model/package.dart'; // Import đúng model Package
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_demo_02/representation/screens/request_routes/raise_request_screen.dart';
 
 import '../../../apis/api_services.dart';
 import '../../../components/get_list_response.dart';
 import '../../../components/package.dart';
-import '../../../core/helpers/local_storage_helper.dart'; // Import đúng AssetHelper
+import '../../../core/helpers/local_storage_helper.dart';
+import '../request_routes/raise_request_screen.dart'; // Import đúng AssetHelper
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -183,7 +183,12 @@ class _HomeState extends State<HomeScreen> {
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: MyPackage(
                                   package: packageList[index],
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                        RaiseRequestScreen.routName,
+                                        arguments:
+                                            packageList[index].packageId);
+                                  },
                                 ),
                               ),
                               const SizedBox(
