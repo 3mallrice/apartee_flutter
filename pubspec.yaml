@@ -52,6 +52,7 @@ dependencies:
   logger: ^2.0.2+1
   firebase_storage: ^11.4.0
   flutter_secure_storage: ^9.0.0
+  spinner_date_time_picker: ^0.0.8
 
 dev_dependencies:
   flutter_test:

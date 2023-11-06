@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/components/my_button.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
+import 'package:intl/intl.dart';
+import 'package:spinner_date_time_picker/spinner_date_time_picker.dart';
 
 class RaiseRequestScreen extends StatefulWidget {
   static const routName = 'raise_request';
@@ -15,7 +18,8 @@ class RaiseRequestScreen extends StatefulWidget {
 
 class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
   String _selectedApartment = 'A';
-
+  DateTime selectedDate = DateTime.now();
+  DateTime now = DateTime.now();
   onPressedRaise() async {}
 
   @override
@@ -68,6 +72,64 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
                     _selectedApartment = newValue!;
                   });
                 },
+              ),
+            ),
+
+            SafeArea(
+              child: Container(
+                margin: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: ColorPalette.bgColor,
+                      ),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              var today = DateTime.now();
+                              return Dialog(
+                                child: SpinnerDateTimePicker(
+                                    initialDateTime: today,
+                                    maximumDate:
+                                        today.add(const Duration(days: 365)),
+                                    minimumDate: now,
+                                    mode: CupertinoDatePickerMode.dateAndTime,
+                                    use24hFormat: true,
+                                    didSetTime: (selectedDate) {
+                                      if (selectedDate.isBefore(now)) {
+                                        // Ngày không hợp lệ
+                                        return;
+                                      }
+
+                                      // Ngày hợp lệ
+                                      // Cập nhật ngày đã chọn
+                                      setState(() {
+                                        this.selectedDate = selectedDate;
+                                      });
+                                    }),
+                              );
+                            });
+                      },
+                      child: const Text(
+                        "Select Request Date & Time",
+                        style: TextStyle(
+                            fontSize: 18, color: ColorPalette.primaryColor),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const Text("Request date:"),
+                    Text(
+                      DateFormat('dd/MM/yyyy HH:mm').format(selectedDate),
+                      style: const TextStyle(
+                          fontSize: 18, color: ColorPalette.primaryColor),
+                    )
+                  ],
+                ),
               ),
             ),
 
