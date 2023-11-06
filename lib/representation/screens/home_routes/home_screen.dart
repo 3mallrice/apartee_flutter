@@ -4,10 +4,13 @@ import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/model/login.dart';
 import 'package:flutter_demo_02/model/package.dart'; // Import đúng model Package
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
-import 'package:flutter_demo_02/representation/screens/request_routes/raise_request_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../apis/api_services.dart';
+import '../../../components/get_list_response.dart';
 import '../../../components/package.dart';
-import '../../../core/helpers/local_storage_helper.dart'; // Import đúng AssetHelper
+import '../../../core/helpers/local_storage_helper.dart';
+import '../request_routes/raise_request_screen.dart'; // Import đúng AssetHelper
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -24,15 +27,48 @@ class _HomeState extends State<HomeScreen> {
   ];
 
   Future<LoginResponse>? account;
+  int currentPage = 1;
+  int totalPage = 1;
+  bool isLastPage = false;
+  List<Package> packageList = [];
+  CallApi callApi = CallApi();
 
   @override
   void initState() {
     super.initState();
     account = loadAccount();
+    getPackages();
   }
 
   Future<LoginResponse> loadAccount() async {
     return await LoginAccount.loadLoginAccount();
+  }
+
+  getPackages() async {
+    GetListResponse response = await callApi.getPackages(currentPage);
+    packageList = response.list as List<Package>;
+    totalPage = response.totalPage;
+    setState(() {});
+  }
+
+  void _onPackagesReachedEnd() {
+    if (currentPage == totalPage) {
+      // Đã hết trang
+      isLastPage = true;
+      return;
+    }
+
+    currentPage++;
+
+    getPackages();
+  }
+
+  // Hàm kiểm tra đến cuối danh sách
+  bool hasReachedMaxPackages(List<Package> packages) {
+    // Nếu currentPage * pageSize >= totalCount
+    // là đã đến cuối
+
+    return packages.length == 10 * currentPage;
   }
 
   @override
@@ -120,53 +156,53 @@ class _HomeState extends State<HomeScreen> {
                         height: 10,
                       ),
                     ),
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: MyPackage(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(RaiseRequestScreen.routName);
-                          },
-                          package: Package(
-                              packageID: 1,
-                              apartmentTypeName: 'Apartment22',
-                              code: "ABC123",
-                              name:
-                                  "Sample Package This is a sample package description.",
-                              description:
-                                  "This is a sample package description. This is a sample package description. This is a sample package description. This is a sample package description.",
-                              price: 100.0,
-                              imageUri:
-                                  'https://maxst.icons8.com/vue-static/landings/license/mobileApps1x.webp'),
-                        ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          // Kiểm tra cuối danh sách
+                          if (index == packageList.length - 1) {
+                            // Gọi hàm load thêm
+                            _onPackagesReachedEnd();
+                          }
+
+                          if (isLastPage) {
+                            Fluttertoast.showToast(
+                                msg: "No more package",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 3,
+                                backgroundColor: ColorPalette.spaceLine,
+                                textColor: ColorPalette.primaryColor,
+                                fontSize: 16.0);
+                          }
+
+                          return Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: MyPackage(
+                                  package: packageList[index],
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                        RaiseRequestScreen.routName,
+                                        arguments:
+                                            packageList[index].packageId);
+                                  },
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              )
+                            ],
+                          );
+                        },
+                        childCount: packageList.length,
                       ),
                     ),
                     const SliverToBoxAdapter(
                       child: SizedBox(
-                        height: 15,
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        child: MyPackage(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(RaiseRequestScreen.routName);
-                          },
-                          package: Package(
-                              packageID: 1,
-                              apartmentTypeName: 'Apartment22',
-                              code: "ABC123",
-                              name:
-                                  "Sample Package This is a sample package description.",
-                              description:
-                                  "This is a sample package description. This is a sample package description. This is a sample package description. This is a sample package description.",
-                              price: 100.0,
-                              imageUri:
-                                  'https://maxst.icons8.com/vue-static/landings/license/websites1x.webp'),
-                        ),
+                        height: 10,
                       ),
                     ),
                   ],

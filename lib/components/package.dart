@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
+import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 import 'package:flutter_demo_02/model/package.dart';
 
 class MyPackage extends StatelessWidget {
@@ -8,7 +9,7 @@ class MyPackage extends StatelessWidget {
 
   const MyPackage({
     super.key,
-    required this.onTap,
+    this.onTap,
     required this.package,
   });
 
@@ -26,10 +27,12 @@ class MyPackage extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Hero(
-              tag: Image.network(package.imageUri),
+              tag: Image.network(
+                  package.packageImageLink ?? AssetHelper.imageBanner),
               transitionOnUserGestures: true,
               child: Image.network(
-                package.imageUri,
+                // package.packageImageLink ??
+                "https://images.wisegeek.com/pile-of-boxes.jpg",
                 width: double.infinity,
                 height: 190,
                 fit: BoxFit.cover,
@@ -41,7 +44,7 @@ class MyPackage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    package.name,
+                    package.packageName,
                     style: const TextStyle(
                       color: ColorPalette.primaryColor,
                       fontSize: 18,
@@ -50,7 +53,7 @@ class MyPackage extends StatelessWidget {
                     textAlign: TextAlign.left,
                   ),
                   Text(
-                    package.description,
+                    package.packageDescription,
                     style: const TextStyle(
                       color: ColorPalette.textColor,
                       fontSize: 16,
