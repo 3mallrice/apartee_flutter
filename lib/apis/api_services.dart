@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_demo_02/model/request.dart';
 import 'package:http/http.dart' as http;
 
 import '../components/get_list_response.dart';
@@ -83,6 +84,50 @@ class CallApi {
           package.map((e) => Package.fromJson(e)).toList();
       final int totalPage = jsonResponse["totalPage"];
       GetListResponse getResponse = GetListResponse(packageList, totalPage);
+      return getResponse;
+    } else {
+      throw Exception("Something wrong!");
+    }
+  }
+
+  //GET: /api/package/:id
+  //get package by id
+  Future<Package> getPackage(int id) async {
+    var url = Uri.parse('$_url/package/$id');
+
+    http.Response response = await http.get(
+      url,
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      Package package = Package.fromJson(jsonResponse);
+      return package;
+    } else {
+      throw Exception("Something wrong!");
+    }
+  }
+
+  //GET: ../staff/request
+  //get all request of staff by staffId
+  Future<GetListResponse> getStaffRequest(int staffid, int page) async {
+    var url = Uri.parse('$_url/staff/request');
+    url = url.replace(queryParameters: {'staffid': '$staffid'});
+    url = url.replace(queryParameters: {'page': '$page'});
+
+    http.Response response = await http.get(
+      url,
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      final List<dynamic> request = jsonResponse["data"];
+      final List<Request> requestList =
+          request.map((e) => Request.fromJson(e)).toList();
+      final int totalPage = jsonResponse["totalPage"];
+      GetListResponse getResponse = GetListResponse(requestList, totalPage);
       return getResponse;
     } else {
       throw Exception("Something wrong!");
