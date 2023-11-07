@@ -4,8 +4,11 @@ import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/components/my_button.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
+import 'package:flutter_demo_02/model/package.dart';
 import 'package:intl/intl.dart';
 import 'package:spinner_date_time_picker/spinner_date_time_picker.dart';
+
+import '../../../apis/api_services.dart';
 
 class RaiseRequestScreen extends StatefulWidget {
   static const routName = 'raise_request';
@@ -21,6 +24,30 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
   DateTime selectedDate = DateTime.now();
   DateTime now = DateTime.now();
   onPressedRaise() async {}
+
+  int packageId = -1;
+  Package? package;
+  CallApi callApi = CallApi();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    packageId = ModalRoute.of(context)?.settings.arguments as int;
+
+    getPackage(packageId);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void getPackage(int packageId) async {
+    Package pk = await callApi.getPackage(packageId);
+    package = pk;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,21 +161,23 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
             ),
 
             const SizedBox(height: 5.0),
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Package 1',
-                  style: TextStyle(
+                  package?.packageName != null ? package!.packageName : "",
+                  style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                     color: ColorPalette.textColor,
                   ),
                 ),
-                SizedBox(height: 15.0),
+                const SizedBox(height: 15.0),
                 Text(
-                  'Package description',
-                  style: TextStyle(
+                  package?.packageDescription != null
+                      ? package!.packageDescription
+                      : "",
+                  style: const TextStyle(
                     fontSize: 14,
                     color: ColorPalette.unselectedIcon,
                   ),

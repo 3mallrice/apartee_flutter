@@ -1,9 +1,14 @@
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_02/components/staff_request.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/local_storage_helper.dart';
 import 'package:flutter_demo_02/model/login.dart';
+import 'package:flutter_demo_02/model/request.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../apis/api_services.dart';
+import '../../../components/get_list_response.dart';
 import '../../../core/helpers/asset_helpers.dart';
 
 class StaffHome extends StatefulWidget {
@@ -22,6 +27,12 @@ class _StaffHomeState extends State<StaffHome> {
   ];
 
   Future<LoginResponse>? account;
+  int currentPage = 1;
+  int totalPage = 1;
+  bool isLastPage = false;
+  List<Request> requestList = [];
+  CallApi callApi = CallApi();
+  int staffid = -1;
 
   @override
   void initState() {
@@ -31,6 +42,37 @@ class _StaffHomeState extends State<StaffHome> {
 
   Future<LoginResponse> loadAccount() async {
     return await LoginAccount.loadLoginAccount();
+  }
+
+  getRequest() async {
+    GetListResponse response =
+        await callApi.getStaffRequest(staffid, currentPage);
+    requestList = response.list as List<Request>;
+    totalPage = response.totalPage;
+    setState(() {});
+  }
+
+  void _onPackagesReachedEnd() {
+    if (currentPage == totalPage) {
+      // Đã hết trang
+      isLastPage = true;
+      return;
+    }
+
+    currentPage++;
+
+    getRequest();
+  }
+
+  bool hasReachedMaxRequest(List<Request> request) {
+    // Nếu currentPage * pageSize >= totalCount
+    // là đã đến cuối
+
+    return request.length == 10 * currentPage;
+  }
+
+  Function()? onTap() {
+    return null;
   }
 
   @override
@@ -44,6 +86,7 @@ class _StaffHomeState extends State<StaffHome> {
 
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.data != null) {
+              staffid = snapshot.data!.id;
               return Scaffold(
                 backgroundColor: ColorPalette.bgColor,
                 body: CustomScrollView(
@@ -120,6 +163,46 @@ class _StaffHomeState extends State<StaffHome> {
                     const SliverToBoxAdapter(
                       child: SizedBox(
                         height: 10,
+                      ),
+                    ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          // Kiểm tra cuối danh sách
+                          if (index == requestList.length - 1) {
+                            // Gọi hàm load thêm
+                            _onPackagesReachedEnd();
+                          }
+
+                          if (isLastPage) {
+                            Fluttertoast.showToast(
+                                msg: "No more request",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.CENTER,
+                                timeInSecForIosWeb: 3,
+                                backgroundColor: ColorPalette.spaceLine,
+                                textColor: ColorPalette.primaryColor,
+                                fontSize: 16.0);
+                          }
+
+                          return Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: StaffRequest(
+                                  staffRequest: requestList[index],
+                                  requestid: requestList[index].requestId,
+                                  onTap: onTap,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              )
+                            ],
+                          );
+                        },
+                        childCount: requestList.length,
                       ),
                     ),
                   ],
