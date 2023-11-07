@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/model/request.dart';
+import 'package:intl/intl.dart';
 
 import '../core/const/color_const.dart';
 
@@ -13,115 +14,75 @@ class StaffRequest extends StatelessWidget {
       this.onTap,
       required this.requestid});
 
-  Color getStatusColor(String status) {
+  Color? getStatusColor(String status) {
     switch (status) {
-      case 'on-going':
-        return Colors.greenAccent;
-      case 'cancel':
-        return Colors.redAccent;
-      case 'finish':
+      case 'PENDING':
+        return Colors.yellow[100];
+      case 'PROCESSING':
         return ColorPalette.secondColor;
+      case 'DONE':
+        return Colors.green[300];
       default:
         return Colors.white;
     }
   }
 
-  void Function()? onPressed() {}
-
-  void showConfirmationDialog(
-    BuildContext context,
-  ) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("Confirm Status Update"),
-          content: const Text("Do you want to mark this request as done?"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text("No"),
-            ),
-            TextButton(
-              onPressed: () {
-                // Perform status update here
-                // You can update the status of 'myRequest' here
-                onPressed;
-
-                // Close the dialog
-                Navigator.of(context).pop();
-
-                // Show a success message
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Request marked as done."),
-                  ),
-                );
-              },
-              child: const Text("Yes"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Material(
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: Material(
         elevation: 4,
         color: ColorPalette.bgColor,
-        borderRadius: const BorderRadius.all(Radius.circular(7)),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
         child: InkWell(
           onTap: onTap,
           hoverColor: ColorPalette.secondColor,
           splashColor: ColorPalette.secondColor,
           child: Container(
-            color: getStatusColor(staffRequest.reqStatus),
+            width: screenWidth, // Sét chiều rộng bằng chiều rộng màn hình
+            decoration: BoxDecoration(
+              color: getStatusColor(staffRequest.reqStatus),
+              borderRadius: const BorderRadius.all(Radius.circular(12)),
+            ),
+            padding: const EdgeInsets.all(10),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Text(
-                  "Package: ${staffRequest.packageName}",
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                Text(
-                  "Booking Date: ${staffRequest.bookDateTime.toLocal()}",
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                Text(
-                  "Status: ${staffRequest.reqStatus}",
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-                Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        showConfirmationDialog(context);
-                      },
-                      child: const Text("Done"),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    "Package: ${staffRequest.packageName}",
+                    style: const TextStyle(
+                      fontSize: 16,
                     ),
-                    const SizedBox(width: 10), // Add some space between buttons
-                    ElevatedButton(
-                      onPressed: () {
-                        // Handle cancel action here
-                        showConfirmationDialog(context);
-                      },
-                      child: const Text("Cancel"),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    "Booking Date: ${DateFormat('dd-MM-yyyy HH:mm').format(staffRequest.bookDateTime.toLocal())}",
+                    style: const TextStyle(
+                      fontSize: 16,
                     ),
-                  ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Text(
+                    "Status: ${staffRequest.reqStatus}",
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

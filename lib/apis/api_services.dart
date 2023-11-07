@@ -30,6 +30,7 @@ class CallApi {
     final data = responseBody["data"];
     final message = responseBody["message"];
     token = responseBody["token"];
+    LocalStorageHelper.setValue("token", token);
     LoginResponse account = LoginResponse.fromJson(data);
 
     if (response.statusCode == 200) {
@@ -95,6 +96,7 @@ class CallApi {
   Future<Package> getPackage(int id) async {
     var url = Uri.parse('$_url/package/$id');
 
+    String token = LocalStorageHelper.getValue("token");
     http.Response response = await http.get(
       url,
       headers: {'Authorization': 'Bearer $token'},
@@ -109,12 +111,18 @@ class CallApi {
     }
   }
 
-  //GET: ../staff/request
+  //GET: ../request/staff/:id
   //get all request of staff by staffId
-  Future<GetListResponse> getStaffRequest(int staffid, int page) async {
-    var url = Uri.parse('$_url/staff/request');
-    url = url.replace(queryParameters: {'staffid': '$staffid'});
-    url = url.replace(queryParameters: {'page': '$page'});
+  Future<List<Request>> getStaffRequest(int staffid, int page) async {
+    var url = Uri.parse('$_url/request/staffs/$staffid');
+    var queryParameters = {
+      'page': '$page',
+      'pageSize': '10',
+      'sortOrder': 'desc'
+    };
+
+    url = url.replace(queryParameters: queryParameters);
+    String token = LocalStorageHelper.getValue("token");
 
     http.Response response = await http.get(
       url,
@@ -126,9 +134,9 @@ class CallApi {
       final List<dynamic> request = jsonResponse["data"];
       final List<Request> requestList =
           request.map((e) => Request.fromJson(e)).toList();
-      final int totalPage = jsonResponse["totalPage"];
-      GetListResponse getResponse = GetListResponse(requestList, totalPage);
-      return getResponse;
+      // final int totalPage = jsonResponse["totalPage"] ?? 1;
+      // GetListResponse getResponse = GetListResponse(requestList, totalPage);
+      return requestList;
     } else {
       throw Exception("Something wrong!");
     }
