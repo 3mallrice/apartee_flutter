@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_demo_02/components/apartment.dart';
 import 'package:flutter_demo_02/model/request.dart';
 import 'package:http/http.dart' as http;
 
@@ -137,6 +138,29 @@ class CallApi {
       // final int totalPage = jsonResponse["totalPage"] ?? 1;
       // GetListResponse getResponse = GetListResponse(requestList, totalPage);
       return requestList;
+    } else {
+      throw Exception("Something wrong!");
+    }
+  }
+
+  //Get: ../owner/:ownerId
+  Future<List<Apartment>> getApartmentList(int accId) async {
+    var url =
+        Uri.parse('https://apartment-mangement.azurewebsites.net/owner/$accId');
+
+    String token = LocalStorageHelper.getValue("token");
+
+    http.Response response = await http.get(
+      url,
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      final List<dynamic> apartment = jsonResponse["data"];
+      final List<Apartment> apartmentList =
+          apartment.map((e) => Apartment.fromJson(e)).toList();
+      return apartmentList;
     } else {
       throw Exception("Something wrong!");
     }
