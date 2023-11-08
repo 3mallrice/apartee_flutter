@@ -4,6 +4,7 @@ import 'package:flutter_demo_02/model/request.dart';
 import 'package:http/http.dart' as http;
 
 import '../components/get_list_response.dart';
+import '../components/raise_request.dart';
 import '../core/helpers/local_storage_helper.dart';
 import '../model/login.dart';
 import '../model/package.dart';
@@ -74,6 +75,11 @@ class CallApi {
     var url = Uri.parse('$_url/package');
     url = url.replace(queryParameters: {'page': '$page'});
 
+    final token = LocalStorageHelper.getValue("token");
+    if (token == null) {
+      throw Exception("Token not available");
+    }
+
     http.Response response = await http.get(
       url,
       headers: {'Authorization': 'Bearer $token'},
@@ -88,7 +94,13 @@ class CallApi {
       GetListResponse getResponse = GetListResponse(packageList, totalPage);
       return getResponse;
     } else {
-      throw Exception("Something wrong!");
+      if (response.statusCode == 401) {
+        throw Exception("Unauthorized"); // Token hết hạn hoặc không hợp lệ
+      } else if (response.statusCode == 500) {
+        throw Exception("Server error");
+      } else {
+        throw Exception("Something went wrong");
+      }
     }
   }
 
@@ -97,7 +109,10 @@ class CallApi {
   Future<Package> getPackage(int id) async {
     var url = Uri.parse('$_url/package/$id');
 
-    String token = LocalStorageHelper.getValue("token");
+    final token = LocalStorageHelper.getValue("token");
+    if (token == null) {
+      throw Exception("Token not available");
+    }
     http.Response response = await http.get(
       url,
       headers: {'Authorization': 'Bearer $token'},
@@ -108,7 +123,14 @@ class CallApi {
       Package package = Package.fromJson(jsonResponse);
       return package;
     } else {
-      throw Exception("Something wrong!");
+      // Xử lý lỗi HTTP cụ thể, ví dụ:
+      if (response.statusCode == 401) {
+        throw Exception("Unauthorized"); // Token hết hạn hoặc không hợp lệ
+      } else if (response.statusCode == 500) {
+        throw Exception("Server error");
+      } else {
+        throw Exception("Something went wrong");
+      }
     }
   }
 
@@ -123,7 +145,10 @@ class CallApi {
     };
 
     url = url.replace(queryParameters: queryParameters);
-    String token = LocalStorageHelper.getValue("token");
+    final token = LocalStorageHelper.getValue("token");
+    if (token == null) {
+      throw Exception("Token not available");
+    }
 
     http.Response response = await http.get(
       url,
@@ -139,7 +164,14 @@ class CallApi {
       // GetListResponse getResponse = GetListResponse(requestList, totalPage);
       return requestList;
     } else {
-      throw Exception("Something wrong!");
+      // Xử lý lỗi HTTP cụ thể, ví dụ:
+      if (response.statusCode == 401) {
+        throw Exception("Unauthorized"); // Token hết hạn hoặc không hợp lệ
+      } else if (response.statusCode == 500) {
+        throw Exception("Server error");
+      } else {
+        throw Exception("Something went wrong");
+      }
     }
   }
 
@@ -148,7 +180,10 @@ class CallApi {
     var url =
         Uri.parse('https://apartment-mangement.azurewebsites.net/owner/$accId');
 
-    String token = LocalStorageHelper.getValue("token");
+    final token = LocalStorageHelper.getValue("token");
+    if (token == null) {
+      throw Exception("Token not available");
+    }
 
     http.Response response = await http.get(
       url,
@@ -162,7 +197,48 @@ class CallApi {
           apartment.map((e) => Apartment.fromJson(e)).toList();
       return apartmentList;
     } else {
-      throw Exception("Something wrong!");
+      // Xử lý lỗi HTTP cụ thể, ví dụ:
+      if (response.statusCode == 401) {
+        throw Exception("Unauthorized"); // Token hết hạn hoặc không hợp lệ
+      } else if (response.statusCode == 500) {
+        throw Exception("Server error");
+      } else {
+        throw Exception("Something went wrong");
+      }
     }
   }
+
+  //POST: ../request
+  Future<dynamic> raiseNewRequest(RaiseRequest request) async {
+    final url = Uri.parse('$_url/request');
+    final body = jsonEncode(request.toJson());
+
+    final token = LocalStorageHelper.getValue("token");
+    if (token == null) {
+      throw Exception("Token not available");
+    }
+
+    final response = await http.post(
+      url,
+      body: body,
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      final data = jsonResponse["data"];
+      return data; // Trả về dữ liệu từ phản hồi
+    } else {
+      // Xử lý lỗi HTTP cụ thể, ví dụ:
+      if (response.statusCode == 401) {
+        throw Exception("Unauthorized"); // Token hết hạn hoặc không hợp lệ
+      } else if (response.statusCode == 500) {
+        throw Exception("Server error");
+      } else {
+        throw Exception("Something went wrong");
+      }
+    }
+  }
+
+  //
 }

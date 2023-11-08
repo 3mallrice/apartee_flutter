@@ -34,6 +34,7 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
   Future<LoginResponse>? account;
   int? accId;
   List<Apartment>? apartmentList;
+  TextEditingController descriptionController = TextEditingController();
 
   @override
   void didChangeDependencies() {
@@ -57,7 +58,7 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
   void getPackage(int packageId) async {
     Package pk = await callApi.getPackage(packageId);
     package = pk;
-    setState(() {});
+    // setState(() {});
   }
 
   void getApartment(int accId) async {
@@ -94,31 +95,63 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
               AssetHelper.imageBanner,
               width: screenWidth,
             ),
-            const SizedBox(
-                height: 16.0), // Xóa "const" để có thể thay đổi khoảng cách
-            const Text(
-              'Select your apartment',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.black,
+            const SizedBox(height: 16.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  package?.packageName != null ? package!.packageName : "",
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: ColorPalette.textColor,
+                  ),
+                ),
+                const SizedBox(height: 15.0),
+                Text(
+                  package?.packageDescription != null
+                      ? package!.packageDescription
+                      : "",
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: ColorPalette.unselectedIcon,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20.0),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: [
+                  const Text(
+                    'Select your apartment: ',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(width: 20.0),
+                  DropdownButton<String>(
+                    value:
+                        _selectedApartment ?? apartmentList?[0].apartmentName,
+                    iconSize: 48.0,
+                    items: apartmentList?.toSet().map((Apartment apartment) {
+                      return DropdownMenuItem<String>(
+                        value: apartment.apartmentName,
+                        child: Text(apartment.apartmentName),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedApartment = newValue!;
+                      });
+                    },
+                  ),
+                ],
               ),
             ),
-            DropdownButton<String>(
-              value: _selectedApartment ?? apartmentList?[0].apartmentName,
-              iconSize: 48.0,
-              items: apartmentList?.toSet().map((Apartment apartment) {
-                return DropdownMenuItem<String>(
-                  value: apartment.apartmentName,
-                  child: Text(apartment.apartmentName),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedApartment = newValue!;
-                });
-              },
-            ),
-
             SafeArea(
               child: Container(
                 margin: const EdgeInsets.all(16),
@@ -176,30 +209,18 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
                 ),
               ),
             ),
-
             const SizedBox(height: 5.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  package?.packageName != null ? package!.packageName : "",
-                  style: const TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: ColorPalette.textColor,
-                  ),
+            Container(
+              margin: const EdgeInsets.all(16),
+              child: TextField(
+                controller: descriptionController,
+                maxLines: 2,
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                  hintText: 'Enter your request description...',
+                  border: OutlineInputBorder(),
                 ),
-                const SizedBox(height: 15.0),
-                Text(
-                  package?.packageDescription != null
-                      ? package!.packageDescription
-                      : "",
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: ColorPalette.unselectedIcon,
-                  ),
-                ),
-              ],
+              ),
             ),
           ],
         ),

@@ -27,17 +27,15 @@ class MyPackage extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             Hero(
-              tag: Image.network(
-                  package.packageImageLink ?? AssetHelper.imageBanner),
-              transitionOnUserGestures: true,
-              child: Image.network(
-                // package.packageImageLink ??
-                "https://images.wisegeek.com/pile-of-boxes.jpg",
-                width: double.infinity,
-                height: 190,
-                fit: BoxFit.cover,
-              ),
-            ),
+                tag: Image.network(
+                    package.packageImageLink ?? AssetHelper.imageBanner),
+                transitionOnUserGestures: true,
+                child: Image.asset(
+                  "assets/imgs/package.png",
+                  width: double.infinity,
+                  height: 190,
+                  fit: BoxFit.cover,
+                )),
             Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 8),
               child: Column(
