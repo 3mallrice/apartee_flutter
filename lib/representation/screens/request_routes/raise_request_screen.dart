@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_02/components/apartment.dart';
+import 'package:flutter_demo_02/model/apartment.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/components/my_button.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
