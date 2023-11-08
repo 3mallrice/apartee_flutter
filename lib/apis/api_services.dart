@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter_demo_02/components/apartment.dart';
+import 'package:flutter_demo_02/model/apartment.dart';
 import 'package:flutter_demo_02/model/request.dart';
 import 'package:http/http.dart' as http;
 

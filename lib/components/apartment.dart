@@ -1,79 +1,52 @@
-class Apartment {
-  int apartmentId;
-  int apartmentTypeId;
-  String apartmentName;
-  int buildingId;
-  int ownerId;
-  DateTime fromDate;
-  DateTime toDate;
-  int? sequence;
-  String apartmentStatus;
-  int? contractNumber;
-  String? apartmentType;
-  List<dynamic>? assets;
-  String? building;
-  List<dynamic>? contracts;
-  String? owner;
-  List<dynamic>? requests;
+import 'package:flutter/material.dart';
+import 'package:flutter_demo_02/model/apartment.dart';
+import 'package:intl/intl.dart';
 
-  Apartment({
-    required this.apartmentId,
-    required this.apartmentTypeId,
-    required this.apartmentName,
-    required this.buildingId,
-    required this.ownerId,
-    required this.fromDate,
-    required this.toDate,
-    this.sequence,
-    required this.apartmentStatus,
-    this.contractNumber,
-    this.apartmentType,
-    this.assets,
-    this.building,
-    this.contracts,
-    this.owner,
-    this.requests,
-  });
+import '../core/const/color_const.dart';
 
-  factory Apartment.fromJson(Map<String, dynamic> json) {
-    return Apartment(
-      apartmentId: json['apartmentId'],
-      apartmentTypeId: json['apartmentTypeId'],
-      apartmentName: json['apartmentName'],
-      buildingId: json['buildingId'],
-      ownerId: json['ownerId'],
-      fromDate: DateTime.parse(json['fromDate']),
-      toDate: DateTime.parse(json['toDate']),
-      sequence: json['sequence'],
-      apartmentStatus: json['apartmentStatus'],
-      contractNumber: json['contractNumber'],
-      apartmentType: json['apartmentType'],
-      assets: json['assets'],
-      building: json['building'],
-      contracts: json['contracts'],
-      owner: json['owner'],
-      requests: json['requests'],
+class MyApartment extends StatelessWidget {
+  final Apartment apartment;
+  final Function()? onTap;
+  const MyApartment({super.key, required this.apartment, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 4,
+      color: ColorPalette.bgColor,
+      borderRadius: const BorderRadius.all(Radius.circular(7)),
+      child: InkWell(
+        onTap: onTap,
+        hoverColor: ColorPalette.secondColor,
+        splashColor: ColorPalette.secondColor,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                apartment.apartmentName,
+                style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: ColorPalette.primaryColor),
+              ),
+              Text(
+                "Contract Number: ${apartment.contractNumber}",
+                style: const TextStyle(fontSize: 16),
+              ),
+              Text(
+                "From Date: ${DateFormat('dd/MM/yyyy').format(apartment.fromDate)}",
+                style: const TextStyle(fontSize: 16),
+              ),
+              Text(
+                "To Date: ${DateFormat('dd/MM/yyyy').format(apartment.toDate)}",
+                style: const TextStyle(fontSize: 16),
+              )
+            ],
+          ),
+        ),
+      ),
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'apartmentId': apartmentId,
-      'apartmentTypeId': apartmentTypeId,
-      'apartmentName': apartmentName,
-      'buildingId': buildingId,
-      'ownerId': ownerId,
-      'fromDate': fromDate.toIso8601String(),
-      'toDate': toDate.toIso8601String(),
-      'sequence': sequence,
-      'apartmentStatus': apartmentStatus,
-      'contractNumber': contractNumber,
-      'apartmentType': apartmentType,
-      'assets': assets,
-      'building': building,
-      'contracts': contracts,
-      'owner': owner,
-      'requests': requests,
-    };
   }
 }
