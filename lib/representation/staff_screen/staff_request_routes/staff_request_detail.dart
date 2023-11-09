@@ -20,6 +20,7 @@ class _StaffRequestDetailState extends State<StaffRequestDetail> {
   Request? request;
   CallApi callApi = CallApi();
   Future<LoginResponse>? account;
+  TextEditingController maintainItemController = TextEditingController();
 
   void getRequest(int requestId) async {
     Request rq = await callApi.getRequestDetail(requestId);
@@ -70,8 +71,8 @@ class _StaffRequestDetailState extends State<StaffRequestDetail> {
         children: [
           Center(
             child: Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(30),
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
@@ -103,6 +104,16 @@ class _StaffRequestDetailState extends State<StaffRequestDetail> {
                       _buildInfoField(
                         "Booking Date:",
                         formatDateTime(request?.bookDateTime),
+                      ),
+                      _buildInfoField("Status: ", request?.reqStatus ?? 'N/A'),
+                      _buildInfoField(
+                          "Maintain Item:", maintainItemController.text),
+                      TextField(
+                        controller: maintainItemController,
+                        decoration: const InputDecoration(
+                          labelText: 'Maintain Item',
+                          border: OutlineInputBorder(),
+                        ),
                       ),
                     ],
                   ));
@@ -169,8 +180,8 @@ class _StaffRequestDetailState extends State<StaffRequestDetail> {
                                     ? 'WORKING'
                                     : 'DONE',
                                 style: const TextStyle(
-                                  fontSize: 20, // Đặt cỡ chữ thành 20
-                                  fontWeight: FontWeight.bold, // In đậm
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),

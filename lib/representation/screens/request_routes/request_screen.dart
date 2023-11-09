@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
@@ -31,8 +33,25 @@ class _RequestScreenState extends State<RequestScreen> {
     account!.then((value) {
       accId = value.id;
       getApartment(accId!);
-      ownerRequests = callApi.getOwnerRequest(accId!); // Fetch owner requests
+      ownerRequests = callApi.getOwnerRequest(accId!);
+      setState(() {}); // Rebuild UI
+      _fetchData();
+      Timer.periodic(const Duration(seconds: 5), (_) {
+        _fetchData();
+      });
     });
+  }
+
+  _fetchData() async {
+    print("Loading...");
+    try {
+      ownerRequests = callApi.getOwnerRequest(accId!);
+      await ownerRequests; // Chờ dữ liệu được tải
+      print("Dữ liệu tải thành công");
+    } catch (error) {
+      print("Lỗi khi tải dữ liệu: $error");
+    }
+    setState(() {});
   }
 
   void getApartment(int accId) async {
