@@ -9,6 +9,7 @@ class Request {
   dynamic packagePrice;
   String? description;
   DateTime bookDateTime;
+  String? apartmentAddress;
   dynamic endDateTime;
   bool? isSequence;
   int? sequence;
@@ -22,6 +23,7 @@ class Request {
     this.ownerId,
     required this.apartmentName,
     required this.packageName,
+    this.apartmentAddress,
     this.owner,
     this.packagePrice,
     this.description,
@@ -42,6 +44,7 @@ class Request {
       apartmentName: json['apartmentName'],
       packageName: json['packageName'],
       owner: json['owner'],
+      apartmentAddress: json['apartmentAddress'],
       packagePrice: json['packagePrice'],
       description: json['description'],
       bookDateTime: DateTime.parse(json['bookDateTime']),

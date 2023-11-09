@@ -280,7 +280,7 @@ class CallApi {
   }
 
   Future<Request> getRequestDetail(int id) async {
-    var url = Uri.parse('$_url/request-detail/$id');
+    var url = Uri.parse('$_url/requests/$id');
 
     final token = LocalStorageHelper.getValue("token");
     if (token == null) {
