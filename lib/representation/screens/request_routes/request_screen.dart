@@ -6,8 +6,8 @@ import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
 import '../../../apis/api_services.dart';
 import '../../../core/helpers/local_storage_helper.dart';
-import '../../../model/apartment.dart';
 import '../../../model/login.dart';
+import '../../../model/request.dart';
 
 class RequestScreen extends StatefulWidget {
   const RequestScreen({super.key});
@@ -17,10 +17,10 @@ class RequestScreen extends StatefulWidget {
 }
 
 class _RequestScreenState extends State<RequestScreen> {
-  List<Apartment>? apartmentList;
-  Future<LoginResponse>? account;
   CallApi callApi = CallApi();
+  Future<LoginResponse>? account;
   int? accId;
+  List<Request> requestList = [];
 
   @override
   void initState() {
@@ -28,15 +28,26 @@ class _RequestScreenState extends State<RequestScreen> {
     account = loadAccount();
     account!.then((value) {
       accId = value.id;
-      getApartment(accId!);
+      getRequests(accId!);
     });
   }
 
-  void getApartment(int accId) async {
-    List<Apartment> apartList = await callApi.getApartmentList(accId);
-    setState(() {
-      apartmentList = apartList;
-    });
+  void getRequests(int accId) async {
+    try {
+      List<Request> requests = await callApi.getOwnerRequest(accId);
+      setState(() {
+        requestList = requests;
+      });
+    } catch (error) {
+      Text(
+        "Error loading requests: $error",
+        style: const TextStyle(
+            color: ColorPalette.primaryColor,
+            fontWeight: FontWeight.normal,
+            fontSize: 18),
+      );
+      // Xử lý lỗi nếu cần
+    }
   }
 
   Future<LoginResponse> loadAccount() async {
@@ -45,13 +56,6 @@ class _RequestScreenState extends State<RequestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Map<int, String> apartmentIdToNameMap = {};
-    if (apartmentList != null) {
-      for (Apartment apartment in apartmentList!) {
-        apartmentIdToNameMap[apartment.apartmentId] = apartment.apartmentName;
-      }
-    }
-
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
       appBar: AppBarCom(

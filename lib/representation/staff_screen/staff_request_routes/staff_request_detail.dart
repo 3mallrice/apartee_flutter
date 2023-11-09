@@ -8,7 +8,7 @@ import 'package:flutter_demo_02/model/request.dart';
 import 'package:intl/intl.dart';
 
 class StaffRequestDetail extends StatefulWidget {
-  const StaffRequestDetail({Key? key});
+  const StaffRequestDetail({super.key});
 
   static const routName = 'staffRequestDetail';
   @override
@@ -34,7 +34,9 @@ class _StaffRequestDetailState extends State<StaffRequestDetail> {
 
     requestId = ModalRoute.of(context)?.settings.arguments as int;
 
-    getRequest(requestId);
+    setState(() {
+      getRequest(requestId);
+    });
   }
 
   Future<LoginResponse> loadAccount() async {
@@ -66,74 +68,116 @@ class _StaffRequestDetailState extends State<StaffRequestDetail> {
       ),
       body: Column(
         children: [
-          Container(
-            margin: const EdgeInsets.all(16),
-            padding: const EdgeInsets.all(30),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(0, 2),
-                  blurRadius: 4,
-                ),
-              ],
-            ),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return SingleChildScrollView(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    _buildInfoField(
-                        "Apartment:", request?.apartmentName ?? 'N/A'),
-                    _buildInfoField(
-                        "Package Name:", request?.packageName ?? 'N/A'),
-                    _buildInfoField("Package Price:",
-                        request?.packagePrice.toString() ?? 'N/A'),
-                    _buildInfoField("Owner:", request?.owner ?? 'N/A'),
-                    _buildInfoField(
-                        "Description:", request?.description ?? 'N/A'),
-                    _buildInfoField(
-                      "Booking Date:",
-                      formatDateTime(request?.bookDateTime),
-                    ),
-                  ],
-                ));
-              },
+          Center(
+            child: Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(30),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0, 2),
+                    blurRadius: 4,
+                  ),
+                ],
+              ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _buildInfoField(
+                          "Apartment:", request?.apartmentName ?? 'N/A'),
+                      _buildInfoField(
+                          "Package Name:", request?.packageName ?? 'N/A'),
+                      _buildInfoField("Package Price:",
+                          request?.packagePrice.toString() ?? 'N/A'),
+                      _buildInfoField("Owner:", request?.owner ?? 'N/A'),
+                      _buildInfoField(
+                          "Address:", request?.apartmentAddress ?? 'N/A'),
+                      _buildInfoField(
+                          "Description:", request?.description ?? 'N/A'),
+                      _buildInfoField(
+                        "Booking Date:",
+                        formatDateTime(request?.bookDateTime),
+                      ),
+                    ],
+                  ));
+                },
+              ),
             ),
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
-          ElevatedButton(
-            onPressed: () {
-              if (request != null) {
-                if (request?.reqStatus == 'PROCESSING') {
-                  // Xử lý khi trạng thái là PROCESSING
-                  // Ví dụ: Navigator.push() để chuyển trang hoặc thực hiện hành động khác
-                } else if (request?.reqStatus == 'WORKING') {
-                  // Xử lý khi trạng thái là WORKING
-                  // Ví dụ: Hiển thị thông báo hoặc thực hiện hành động khác
-                }
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              backgroundColor: ColorPalette.primaryColor, // Màu nền của nút
-            ),
-            child: Text(
-              (request != null &&
-                      (request?.reqStatus == 'PROCESSING' ||
-                          request?.reqStatus == 'WORKING'))
-                  ? (request?.reqStatus == 'PROCESSING' ? 'WORKING' : 'DONE')
-                  : '',
-              style: const TextStyle(
-                fontSize: 20, // Đặt cỡ chữ thành 20
-                fontWeight: FontWeight.bold, // In đậm
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 65),
+            child: Center(
+              child: Row(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  (request != null &&
+                          (request?.reqStatus == 'PROCESSING' ||
+                              request?.reqStatus == 'WORKING'))
+                      ? Row(
+                          children: [
+                            SizedBox(
+                              width: 120,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: ColorPalette
+                                      .primaryColor, // Màu nền của nút
+                                ),
+                                child: const Text(
+                                  'HOME',
+                                  style: TextStyle(
+                                    fontSize: 20, // Đặt cỡ chữ thành 20
+                                    fontWeight: FontWeight.bold, // In đậm
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                if (request != null) {
+                                  if (request?.reqStatus == 'PROCESSING') {
+                                    // Xử lý khi trạng thái là PROCESSING
+                                    // Ví dụ: Navigator.push() để chuyển trang hoặc thực hiện hành động khác
+                                  } else if (request?.reqStatus == 'WORKING') {
+                                    // Xử lý khi trạng thái là WORKING
+                                    // Ví dụ: Hiển thị thông báo hoặc thực hiện hành động khác
+                                  }
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: ColorPalette
+                                    .primaryColor, // Màu nền của nút
+                              ),
+                              child: Text(
+                                request?.reqStatus == 'PROCESSING'
+                                    ? 'WORKING'
+                                    : 'DONE',
+                                style: const TextStyle(
+                                  fontSize: 20, // Đặt cỡ chữ thành 20
+                                  fontWeight: FontWeight.bold, // In đậm
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : const SizedBox()
+                ],
               ),
             ),
           )
