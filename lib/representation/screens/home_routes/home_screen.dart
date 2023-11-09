@@ -27,6 +27,7 @@ class _HomeState extends State<HomeScreen> {
   ];
 
   Future<LoginResponse>? account;
+  int? requestId;
   int currentPage = 1;
   int totalPage = 1;
   bool isLastPage = false;
@@ -38,6 +39,26 @@ class _HomeState extends State<HomeScreen> {
     super.initState();
     account = loadAccount();
     getPackages();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    requestId = ModalRoute.of(context)!.settings.arguments != null
+        ? ModalRoute.of(context)!.settings.arguments as int
+        : null;
+
+    if (requestId != null) {
+      Fluttertoast.showToast(
+          msg: "Request $requestId raise successfully!!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: ColorPalette.spaceLine,
+          textColor: ColorPalette.primaryColor,
+          fontSize: 16.0);
+    }
   }
 
   Future<LoginResponse> loadAccount() async {
