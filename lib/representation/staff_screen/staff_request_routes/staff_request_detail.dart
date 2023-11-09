@@ -8,6 +8,7 @@ import 'package:flutter_demo_02/model/request.dart';
 import 'package:intl/intl.dart';
 
 class StaffRequestDetail extends StatefulWidget {
+  // ignore: use_key_in_widget_constructors
   const StaffRequestDetail({Key? key});
 
   static const routName = 'staffRequestDetail';

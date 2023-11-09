@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
-import 'package:flutter_demo_02/representation/screens/account_routes/request_screen.dart';
+import 'package:flutter_demo_02/model/request.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
 import '../../../apis/api_services.dart';
@@ -12,6 +12,7 @@ import '../../../model/login.dart';
 class RequestScreen extends StatefulWidget {
   const RequestScreen({super.key});
 
+  static const routName = 'RequestScreen';
   @override
   State<RequestScreen> createState() => _RequestScreenState();
 }
@@ -21,6 +22,7 @@ class _RequestScreenState extends State<RequestScreen> {
   Future<LoginResponse>? account;
   CallApi callApi = CallApi();
   int? accId;
+  Future<List<Request>>? ownerRequests; // Add this line
 
   @override
   void initState() {
@@ -29,6 +31,7 @@ class _RequestScreenState extends State<RequestScreen> {
     account!.then((value) {
       accId = value.id;
       getApartment(accId!);
+      ownerRequests = callApi.getOwnerRequest(accId!); // Fetch owner requests
     });
   }
 
@@ -58,67 +61,58 @@ class _RequestScreenState extends State<RequestScreen> {
         appBarText: 'Request',
         action: [
           Padding(
-              padding: const EdgeInsets.fromLTRB(0, 6, 5, 5),
-              child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(MyRequestScreen.routName);
-                },
-                icon: const FaIcon(FontAwesomeIcons.clockRotateLeft),
-                color: ColorPalette.bgColor,
-              )),
+            padding: const EdgeInsets.fromLTRB(0, 6, 5, 5),
+            child: IconButton(
+              onPressed: () {},
+              icon: const FaIcon(FontAwesomeIcons.clockRotateLeft),
+              color: ColorPalette.bgColor,
+            ),
+          ),
         ],
       ),
-      // body: Column(
-      //   children: [
-      //     const SizedBox(width: 20.0),
-      //     DropdownButton<int>(
-      //       value: _selectedApartmentId ?? apartmentIdToNameMap.keys.first,
-      //       iconSize: 48.0,
-      //       items: apartmentIdToNameMap.keys.map((int id) {
-      //         return DropdownMenuItem<int>(
-      //           value: id,
-      //           child: Text(apartmentIdToNameMap[id]!),
-      //         );
-      //       }).toList(),
-      //       onChanged: (int? newValue) {
-      //         setState(() {
-      //           _selectedApartmentId = newValue!;
-      //         });
-      //       },
-      //     ),
-      //     ListView.builder(
-      //       itemCount: upcomingRequests.length,
-      //       itemBuilder: (context, index) {
-      //         final request = upcomingRequests[index];
-      //         return Card(
-      //           margin: const EdgeInsets.all(8.0),
-      //           child: ListTile(
-      //             title: Text(request.title),
-      //             subtitle: Text(request.date),
-      //             trailing: const Icon(Icons.arrow_forward),
-      //             onTap: () {
-      //               Navigator.of(context).pushNamed(RequestDetail.routName);
-      //             },
-      //           ),
-      //         );
-      //       },
-      //     ),
-      //   ],
-      // )
+      body: FutureBuilder<List<Request>>(
+        future: ownerRequests,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else {
+            List<Request>? requests = snapshot.data;
+            if (requests != null && requests.isNotEmpty) {
+              return ListView.builder(
+                itemCount: requests.length,
+                itemBuilder: (context, index) {
+                  var request = requests[index];
+                  return Card(
+                    margin: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      title: Text('Apartment: ${request.apartmentName}'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Owner: ${request.owner ?? 'N/A'}'),
+                          Text('Package: ${request.packageName}'),
+                          Text('Description: ${request.description ?? 'N/A'}'),
+                          Text('Status: ${request.reqStatus}'),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return const Center(
+                child: Text('No requests available.'),
+              );
+            }
+          }
+        },
+      ),
     );
   }
 }
-
-class UpcomingRequest {
-  final String title;
-  final String date;
-
-  UpcomingRequest(this.title, this.date);
-}
-
-List<UpcomingRequest> upcomingRequests = [
-  UpcomingRequest('Yêu cầu số 1', '10/10/2023'),
-  UpcomingRequest('Yêu cầu số 2', '15/10/2023'),
-  UpcomingRequest('Yêu cầu số 3', '20/10/2023'),
-  // Thêm các yêu cầu khác vào đây
-];
