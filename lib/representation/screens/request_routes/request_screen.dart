@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/representation/screens/account_routes/request_screen.dart';
-import 'package:flutter_demo_02/representation/screens/request_routes/request%20_detail_screen.dart';
 import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
+
+import '../../../apis/api_services.dart';
+import '../../../core/helpers/local_storage_helper.dart';
+import '../../../model/apartment.dart';
+import '../../../model/login.dart';
 
 class RequestScreen extends StatefulWidget {
   const RequestScreen({super.key});
@@ -13,8 +17,41 @@ class RequestScreen extends StatefulWidget {
 }
 
 class _RequestScreenState extends State<RequestScreen> {
+  List<Apartment>? apartmentList;
+  Future<LoginResponse>? account;
+  CallApi callApi = CallApi();
+  int? accId;
+
+  @override
+  void initState() {
+    super.initState();
+    account = loadAccount();
+    account!.then((value) {
+      accId = value.id;
+      getApartment(accId!);
+    });
+  }
+
+  void getApartment(int accId) async {
+    List<Apartment> apartList = await callApi.getApartmentList(accId);
+    setState(() {
+      apartmentList = apartList;
+    });
+  }
+
+  Future<LoginResponse> loadAccount() async {
+    return await LoginAccount.loadLoginAccount();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Map<int, String> apartmentIdToNameMap = {};
+    if (apartmentList != null) {
+      for (Apartment apartment in apartmentList!) {
+        apartmentIdToNameMap[apartment.apartmentId] = apartment.apartmentName;
+      }
+    }
+
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
       appBar: AppBarCom(
@@ -31,23 +68,43 @@ class _RequestScreenState extends State<RequestScreen> {
               )),
         ],
       ),
-      body: ListView.builder(
-        itemCount: upcomingRequests.length,
-        itemBuilder: (context, index) {
-          final request = upcomingRequests[index];
-          return Card(
-            margin: const EdgeInsets.all(8.0),
-            child: ListTile(
-              title: Text(request.title),
-              subtitle: Text(request.date),
-              trailing: const Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.of(context).pushNamed(RequestDetail.routName);
-              },
-            ),
-          );
-        },
-      ),
+      // body: Column(
+      //   children: [
+      //     const SizedBox(width: 20.0),
+      //     DropdownButton<int>(
+      //       value: _selectedApartmentId ?? apartmentIdToNameMap.keys.first,
+      //       iconSize: 48.0,
+      //       items: apartmentIdToNameMap.keys.map((int id) {
+      //         return DropdownMenuItem<int>(
+      //           value: id,
+      //           child: Text(apartmentIdToNameMap[id]!),
+      //         );
+      //       }).toList(),
+      //       onChanged: (int? newValue) {
+      //         setState(() {
+      //           _selectedApartmentId = newValue!;
+      //         });
+      //       },
+      //     ),
+      //     ListView.builder(
+      //       itemCount: upcomingRequests.length,
+      //       itemBuilder: (context, index) {
+      //         final request = upcomingRequests[index];
+      //         return Card(
+      //           margin: const EdgeInsets.all(8.0),
+      //           child: ListTile(
+      //             title: Text(request.title),
+      //             subtitle: Text(request.date),
+      //             trailing: const Icon(Icons.arrow_forward),
+      //             onTap: () {
+      //               Navigator.of(context).pushNamed(RequestDetail.routName);
+      //             },
+      //           ),
+      //         );
+      //       },
+      //     ),
+      //   ],
+      // )
     );
   }
 }
