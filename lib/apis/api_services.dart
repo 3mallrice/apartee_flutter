@@ -175,6 +175,41 @@ class CallApi {
     }
   }
 
+  //GET: ../requests/owners/:ownerId
+  //get all request of owner by ownerId
+  Future<List<Request>> getOwnerRequest(int ownerId) async {
+    var url = Uri.parse('$_url/requests/owners/$ownerId');
+
+    final token = LocalStorageHelper.getValue("token");
+    if (token == null) {
+      throw Exception("Token not available");
+    }
+
+    http.Response response = await http.get(
+      url,
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      final List<dynamic> request = jsonResponse["data"];
+      final List<Request> requestList =
+          request.map((e) => Request.fromJson(e)).toList();
+      // final int totalPage = jsonResponse["totalPage"] ?? 1;
+      // GetListResponse getResponse = GetListResponse(requestList, totalPage);
+      return requestList;
+    } else {
+      // Xử lý lỗi HTTP cụ thể, ví dụ:
+      if (response.statusCode == 401) {
+        throw Exception("Unauthorized"); // Token hết hạn hoặc không hợp lệ
+      } else if (response.statusCode == 500) {
+        throw Exception("Server error");
+      } else {
+        throw Exception("Something went wrong");
+      }
+    }
+  }
+
   //Get: ../owner/:ownerId
   Future<List<Apartment>> getApartmentList(int accId) async {
     var url =
@@ -210,7 +245,7 @@ class CallApi {
 
   //POST: ../request
   Future<dynamic> raiseNewRequest(RaiseRequest request) async {
-    final url = Uri.parse('$_url/request');
+    final url = Uri.parse('$_url/requests');
     final body = jsonEncode(request.toJson());
 
     final token = LocalStorageHelper.getValue("token");
@@ -221,12 +256,16 @@ class CallApi {
     final response = await http.post(
       url,
       body: body,
-      headers: {'Authorization': 'Bearer $token'},
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
     );
 
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       final data = jsonResponse["data"];
+      // final Request request = Request.fromJson(data);
       return data; // Trả về dữ liệu từ phản hồi
     } else {
       // Xử lý lỗi HTTP cụ thể, ví dụ:
@@ -239,6 +278,4 @@ class CallApi {
       }
     }
   }
-
-  //
 }

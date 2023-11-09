@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_02/components/raise_request.dart';
 import 'package:flutter_demo_02/model/apartment.dart';
 import 'package:flutter_demo_02/components/app_bar.dart';
 import 'package:flutter_demo_02/components/my_button.dart';
 import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/asset_helpers.dart';
 import 'package:flutter_demo_02/model/package.dart';
-import 'package:intl/intl.dart';
-import 'package:spinner_date_time_picker/spinner_date_time_picker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../apis/api_services.dart';
 import '../../../core/helpers/local_storage_helper.dart';
@@ -23,10 +22,9 @@ class RaiseRequestScreen extends StatefulWidget {
 }
 
 class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
-  String? _selectedApartment;
+  int? _selectedApartmentId;
   DateTime selectedDate = DateTime.now();
   DateTime now = DateTime.now();
-  onPressedRaise() async {}
 
   int packageId = -1;
   Package? package;
@@ -35,6 +33,7 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
   int? accId;
   List<Apartment>? apartmentList;
   TextEditingController descriptionController = TextEditingController();
+  Map<int, String> apartmentIdToNameMap = {};
 
   @override
   void didChangeDependencies() {
@@ -55,15 +54,37 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
     });
   }
 
+  onPressedRaise() async {
+    RaiseRequest request = RaiseRequest(
+        apartmentId: _selectedApartmentId!,
+        packageId: packageId,
+        requestDescription: descriptionController.text);
+    await callApi.raiseNewRequest(request);
+
+    Fluttertoast.showToast(
+      msg: "Request is raised successfully.",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 2,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
   void getPackage(int packageId) async {
     Package pk = await callApi.getPackage(packageId);
     package = pk;
-    // setState(() {});
+    setState(() {});
   }
 
   void getApartment(int accId) async {
     List<Apartment> apartList = await callApi.getApartmentList(accId);
     apartmentList = apartList;
+
+    for (Apartment apartment in apartmentList!) {
+      apartmentIdToNameMap[apartment.apartmentId] = apartment.apartmentName;
+    }
   }
 
   Future<LoginResponse> loadAccount() async {
@@ -73,6 +94,7 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: ColorPalette.bgColor,
       appBar: AppBarCom(
@@ -133,88 +155,38 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
                     ),
                   ),
                   const SizedBox(width: 20.0),
-                  DropdownButton<String>(
-                    value:
-                        _selectedApartment ?? apartmentList?[0].apartmentName,
+                  DropdownButton<int>(
+                    iconEnabledColor: ColorPalette.primaryColor,
+                    focusColor: ColorPalette.spaceLine,
+                    value: _selectedApartmentId,
                     iconSize: 48.0,
-                    items: apartmentList?.toSet().map((Apartment apartment) {
-                      return DropdownMenuItem<String>(
-                        value: apartment.apartmentName,
-                        child: Text(apartment.apartmentName),
+                    items: apartmentIdToNameMap.keys.map((int id) {
+                      return DropdownMenuItem<int>(
+                        value: id,
+                        child: Text(apartmentIdToNameMap[id]!),
                       );
                     }).toList(),
-                    onChanged: (String? newValue) {
+                    onChanged: (int? newValue) {
                       setState(() {
-                        _selectedApartment = newValue!;
+                        _selectedApartmentId = newValue!;
                       });
                     },
                   ),
                 ],
               ),
             ),
-            SafeArea(
-              child: Container(
-                margin: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorPalette.bgColor,
-                      ),
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              var today = DateTime.now();
-                              return Dialog(
-                                child: SpinnerDateTimePicker(
-                                    initialDateTime: today,
-                                    maximumDate:
-                                        today.add(const Duration(days: 365)),
-                                    minimumDate: now,
-                                    mode: CupertinoDatePickerMode.dateAndTime,
-                                    use24hFormat: true,
-                                    didSetTime: (selectedDate) {
-                                      if (selectedDate.isBefore(now)) {
-                                        // Ngày không hợp lệ
-                                        return;
-                                      }
-
-                                      // Ngày hợp lệ
-                                      // Cập nhật ngày đã chọn
-                                      setState(() {
-                                        this.selectedDate = selectedDate;
-                                      });
-                                    }),
-                              );
-                            });
-                      },
-                      child: const Text(
-                        "Select Request Date & Time",
-                        style: TextStyle(
-                            fontSize: 18, color: ColorPalette.primaryColor),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    const Text("Request date:"),
-                    Text(
-                      DateFormat('dd/MM/yyyy HH:mm').format(selectedDate),
-                      style: const TextStyle(
-                          fontSize: 18, color: ColorPalette.primaryColor),
-                    )
-                  ],
-                ),
-              ),
-            ),
             const SizedBox(height: 5.0),
             Container(
+              color: ColorPalette.spaceLine,
               margin: const EdgeInsets.all(16),
               child: TextField(
                 controller: descriptionController,
-                maxLines: 2,
+                onChanged: (text) {
+                  setState(() {
+                    // Bắt sự kiện thay đổi nội dung của descriptionController
+                  });
+                },
+                maxLines: 3,
                 decoration: const InputDecoration(
                   labelText: 'Description',
                   hintText: 'Enter your request description...',
@@ -228,7 +200,9 @@ class _RaiseRequestScreenState extends State<RaiseRequestScreen> {
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(16.0),
         child: MyButton(
-          onTap: onPressedRaise,
+          onTap: () {
+            onPressedRaise();
+          },
           text: 'Raise SR',
           color: ColorPalette.primaryColor,
           textColor: ColorPalette.bgColor,
