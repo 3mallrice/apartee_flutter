@@ -57,8 +57,10 @@ class _AssetScreenState extends State<AssetScreen> {
         itemCount: assets.length,
         itemBuilder: (context, index) {
           final asset = assets[index];
+          // ignore: avoid_print
           print(
               'Asset: ${asset['Name']}, Description: ${asset['Description']}, Quantity: ${asset['Quantity']}');
+          // ignore: avoid_print
           print(assets);
           return ListTile(
             title: Column(

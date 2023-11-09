@@ -6,6 +6,7 @@ import 'package:font_awesome_icon_class/font_awesome_icon_class.dart';
 
 import 'account_screen.dart';
 
+// ignore: unused_element
 final Uri _url = Uri.parse('https://flutter.dev');
 
 class Apartee extends StatelessWidget {
