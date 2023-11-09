@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_02/components/staff_request.dart';
 import 'package:flutter_demo_02/representation/screens/account_routes/account_screen.dart';
 import 'package:flutter_demo_02/representation/screens/account_routes/apartee_screen.dart';
 import 'package:flutter_demo_02/representation/screens/account_routes/apartment_screen.dart';
@@ -18,6 +19,7 @@ import 'package:flutter_demo_02/representation/screens/service_screen.dart';
 import 'package:flutter_demo_02/representation/screens/splash_screen.dart';
 import 'package:flutter_demo_02/representation/staff_screen/staff_home_routes/staff_home_screen.dart';
 import 'package:flutter_demo_02/representation/staff_screen/staff_navbar.dart';
+import 'package:flutter_demo_02/representation/staff_screen/staff_request_routes/staff_request_detail.dart';
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routName: (context) => const SplashScreen(),
@@ -41,4 +43,5 @@ final Map<String, WidgetBuilder> routes = {
   //staff
   StaffBar.routName: (context) => const StaffBar(),
   StaffHome.routName: (context) => const StaffHome(),
+  StaffRequestDetail.routName: (context) => const StaffRequestDetail(),
 };

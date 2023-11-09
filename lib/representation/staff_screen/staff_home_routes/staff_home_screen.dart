@@ -5,6 +5,7 @@ import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/local_storage_helper.dart';
 import 'package:flutter_demo_02/model/login.dart';
 import 'package:flutter_demo_02/model/request.dart';
+import 'package:flutter_demo_02/representation/staff_screen/staff_request_routes/staff_request_detail.dart';
 
 import '../../../apis/api_services.dart';
 import '../../../core/helpers/asset_helpers.dart';
@@ -52,10 +53,6 @@ class _StaffHomeState extends State<StaffHome> {
   getRequest() async {
     requestList = await callApi.getStaffRequest(staffid, currentPage);
     setState(() {});
-  }
-
-  Function()? onTap() {
-    return null;
   }
 
   @override
@@ -159,7 +156,12 @@ class _StaffHomeState extends State<StaffHome> {
                                 child: StaffRequest(
                                   staffRequest: requestList[index],
                                   requestid: requestList[index].requestId,
-                                  onTap: onTap,
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                        StaffRequestDetail.routName,
+                                        arguments:
+                                            requestList[index].requestId);
+                                  },
                                 ),
                               ),
                               const SizedBox(

@@ -17,13 +17,15 @@ class StaffRequest extends StatelessWidget {
   Color? getStatusColor(String status) {
     switch (status) {
       case 'PENDING':
-        return Colors.yellow[100];
+        return ColorPalette.bgColor;
       case 'PROCESSING':
         return ColorPalette.secondColor;
       case 'DONE':
         return Colors.green[300];
+      case 'Working':
+        return ColorPalette.thirdbgColor;
       default:
-        return Colors.white;
+        return ColorPalette.bgColor;
     }
   }
 

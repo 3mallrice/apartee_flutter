@@ -137,7 +137,7 @@ class CallApi {
   //GET: ../request/staff/:id
   //get all request of staff by staffId
   Future<List<Request>> getStaffRequest(int staffid, int page) async {
-    var url = Uri.parse('$_url/request/staffs/$staffid');
+    var url = Uri.parse('$_url/requests/staffs/$staffid');
     var queryParameters = {
       'page': '$page',
       'pageSize': '10',
@@ -240,5 +240,38 @@ class CallApi {
     }
   }
 
-  //
+  Future<Request> getRequestDetail(int id) async {
+    var url = Uri.parse('$_url/request-detail/$id');
+
+    final token = LocalStorageHelper.getValue("token");
+    if (token == null) {
+      throw Exception("Token not available");
+    }
+
+    http.Response response = await http.get(
+      url,
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      if (jsonResponse is Map<String, dynamic> &&
+          jsonResponse.containsKey("data")) {
+        final requestJson = jsonResponse["data"];
+        final Request request = Request.fromJson(requestJson);
+        return request;
+      } else {
+        throw Exception("Invalid JSON response format");
+      }
+    } else {
+      // Xử lý lỗi HTTP cụ thể, ví dụ:
+      if (response.statusCode == 401) {
+        throw Exception("Unauthorized"); // Token hết hạn hoặc không hợp lệ
+      } else if (response.statusCode == 500) {
+        throw Exception("Server error");
+      } else {
+        throw Exception("Something went wrong");
+      }
+    }
+  }
 }

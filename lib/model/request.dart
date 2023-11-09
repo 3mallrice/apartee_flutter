@@ -6,9 +6,10 @@ class Request {
   String apartmentName;
   String packageName;
   String? owner;
+  dynamic packagePrice;
   String? description;
   DateTime bookDateTime;
-  DateTime endDateTime;
+  dynamic endDateTime;
   bool? isSequence;
   int? sequence;
   String reqStatus;
@@ -22,9 +23,10 @@ class Request {
     required this.apartmentName,
     required this.packageName,
     this.owner,
+    this.packagePrice,
     this.description,
     required this.bookDateTime,
-    required this.endDateTime,
+    this.endDateTime,
     this.isSequence,
     this.sequence,
     required this.reqStatus,
@@ -40,9 +42,10 @@ class Request {
       apartmentName: json['apartmentName'],
       packageName: json['packageName'],
       owner: json['owner'],
+      packagePrice: json['packagePrice'],
       description: json['description'],
       bookDateTime: DateTime.parse(json['bookDateTime']),
-      endDateTime: DateTime.parse(json['endDateTime']),
+      endDateTime: json['endDateTime'],
       isSequence: json['isSequence'],
       sequence: json['sequence'],
       reqStatus: json['reqStatus'],
