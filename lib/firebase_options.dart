@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -48,6 +42,17 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAzBf3SGwXJ4jyp3CYvDsCPIM__qZkVtt4',
+    appId: '1:819111597239:web:455d04936dfa103785e932',
+    messagingSenderId: '819111597239',
+    projectId: 'apartee-620a4',
+    authDomain: 'apartee-620a4.firebaseapp.com',
+    databaseURL: 'https://apartee-620a4-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'apartee-620a4.appspot.com',
+    measurementId: 'G-LDWQQKP8EL',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBKYY0qYFqGdzU9eCEDjpG_DNO5SiwnG7Y',
@@ -67,5 +72,16 @@ class DefaultFirebaseOptions {
     storageBucket: 'apartee-620a4.appspot.com',
     iosClientId: '819111597239-7829v03pc1n2qlb92m54m0asqmrql52c.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterDemo02',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCub0hrLO798nbUyl3huy-3Whfat8ZtlBQ',
+    appId: '1:819111597239:ios:f49a82439f8fae5d85e932',
+    messagingSenderId: '819111597239',
+    projectId: 'apartee-620a4',
+    databaseURL: 'https://apartee-620a4-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'apartee-620a4.appspot.com',
+    iosClientId: '819111597239-uod4ig3qes930e1todbgtnhj3o4trck1.apps.googleusercontent.com',
+    iosBundleId: 'com.example.flutterDemo02.RunnerTests',
   );
 }
