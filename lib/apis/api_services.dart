@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_demo_02/model/apartment.dart';
 import 'package:flutter_demo_02/model/request.dart';
+import 'package:flutter_demo_02/model/update_request.dart';
 import 'package:http/http.dart' as http;
 
 import '../components/get_list_response.dart';
@@ -302,6 +303,43 @@ class CallApi {
       } else {
         throw Exception("Invalid JSON response format");
       }
+    } else {
+      // Xử lý lỗi HTTP cụ thể, ví dụ:
+      if (response.statusCode == 401) {
+        throw Exception("Unauthorized"); // Token hết hạn hoặc không hợp lệ
+      } else if (response.statusCode == 500) {
+        throw Exception("Server error");
+      } else {
+        throw Exception("Something went wrong");
+      }
+    }
+  }
+
+  //PUT: ../requests/:requestId
+  //body: requestStatus
+  Future<dynamic> updateRequest(UpdateRequest updateRequest) async {
+    final url = Uri.parse('$_url/requests');
+    final body = jsonEncode(updateRequest.toJson());
+
+    final token = LocalStorageHelper.getValue("token");
+    if (token == null) {
+      throw Exception("Token not available");
+    }
+
+    final response = await http.put(
+      url,
+      body: body,
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final jsonResponse = json.decode(response.body);
+      final data = jsonResponse["data"];
+      // final Request request = Request.fromJson(data);
+      return data; // Trả về dữ liệu từ phản hồi
     } else {
       // Xử lý lỗi HTTP cụ thể, ví dụ:
       if (response.statusCode == 401) {

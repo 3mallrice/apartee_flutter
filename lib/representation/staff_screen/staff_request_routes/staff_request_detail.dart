@@ -5,6 +5,7 @@ import 'package:flutter_demo_02/core/const/color_const.dart';
 import 'package:flutter_demo_02/core/helpers/local_storage_helper.dart';
 import 'package:flutter_demo_02/model/login.dart';
 import 'package:flutter_demo_02/model/request.dart';
+import 'package:flutter_demo_02/model/update_request.dart';
 import 'package:intl/intl.dart';
 
 class StaffRequestDetail extends StatefulWidget {
@@ -17,10 +18,11 @@ class StaffRequestDetail extends StatefulWidget {
 
 class _StaffRequestDetailState extends State<StaffRequestDetail> {
   int requestId = -1;
+  int staffId = -1;
   Request? request;
   CallApi callApi = CallApi();
   Future<LoginResponse>? account;
-  TextEditingController maintainItemController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
   void getRequest(int requestId) async {
     Request rq = await callApi.getRequestDetail(requestId);
@@ -44,10 +46,28 @@ class _StaffRequestDetailState extends State<StaffRequestDetail> {
     return await LoginAccount.loadLoginAccount();
   }
 
+  Future<void Function()?> onPressed(String status) async {
+    if (request != null) {
+      UpdateRequest updateRequest = UpdateRequest(
+          requestId: requestId,
+          staffId: staffId,
+          status: status,
+          description: descriptionController.text);
+      await callApi.updateRequest(updateRequest);
+    }
+    setState(() {
+      getRequest(requestId);
+    });
+    return null;
+  }
+
   @override
   void initState() {
     super.initState();
     account = loadAccount();
+    account!.then((value) {
+      staffId = value.id;
+    });
   }
 
   @override
@@ -99,22 +119,26 @@ class _StaffRequestDetailState extends State<StaffRequestDetail> {
                       _buildInfoField("Owner:", request?.owner ?? 'N/A'),
                       _buildInfoField(
                           "Address:", request?.apartmentAddress ?? 'N/A'),
-                      _buildInfoField(
-                          "Description:", request?.description ?? 'N/A'),
+                      // _buildInfoField(
+                      //     "Description:", request?.description ?? 'N/A'),
+                      (request != null)
+                          ? (request!.reqStatus == "DONE")
+                              ? _buildInfoField(
+                                  "Description:", request?.description ?? "")
+                              : TextField(
+                                  controller: descriptionController,
+                                  decoration: InputDecoration(
+                                    labelText: 'Description',
+                                    hintText: request?.description ?? "",
+                                    border: const OutlineInputBorder(),
+                                  ),
+                                )
+                          : const SizedBox(),
                       _buildInfoField(
                         "Booking Date:",
                         formatDateTime(request?.bookDateTime),
                       ),
                       _buildInfoField("Status: ", request?.reqStatus ?? 'N/A'),
-                      _buildInfoField(
-                          "Maintain Item:", maintainItemController.text),
-                      TextField(
-                        controller: maintainItemController,
-                        decoration: const InputDecoration(
-                          labelText: 'Maintain Item',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
                     ],
                   ));
                 },
@@ -161,15 +185,11 @@ class _StaffRequestDetailState extends State<StaffRequestDetail> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                if (request != null) {
-                                  if (request?.reqStatus == 'PROCESSING') {
-                                    // Xử lý khi trạng thái là PROCESSING
-                                    // Ví dụ: Navigator.push() để chuyển trang hoặc thực hiện hành động khác
-                                  } else if (request?.reqStatus == 'WORKING') {
-                                    // Xử lý khi trạng thái là WORKING
-                                    // Ví dụ: Hiển thị thông báo hoặc thực hiện hành động khác
-                                  }
-                                }
+                                String status;
+                                (request?.reqStatus == 'PROCESSING'
+                                    ? status = 'WORKING'
+                                    : status = 'DONE');
+                                onPressed(status);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: ColorPalette
